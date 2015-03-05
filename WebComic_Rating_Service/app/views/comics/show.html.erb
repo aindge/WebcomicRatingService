@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @comic.name %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @comic.author %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @comic.url %>
+</p>
+
+<p>
+  <strong>Synopsis:</strong>
+  <%= @comic.synopsis %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @comic.genre %>
+</p>
+
+<p>
+  <strong>Rating art:</strong>
+  <%= @comic.rating_art %>
+</p>
+
+<p>
+  <strong>Rating story:</strong>
+  <%= @comic.rating_story %>
+</p>
+
+<p>
+  <strong>Rating overall:</strong>
+  <%= @comic.rating_overall %>
+</p>
+
+<%= link_to 'Edit', edit_comic_path(@comic) %> |
+<%= link_to 'Back', comics_path %>
