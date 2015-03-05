@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :comics
+  root :to => redirect('/comics')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
