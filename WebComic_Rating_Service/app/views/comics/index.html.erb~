@@ -13,7 +13,6 @@
 
 		</div>
 		<div class="content">
-<h1>Listing comics</h1>
 			<table>
   <thead>
     <tr>
@@ -54,6 +53,6 @@
 		</div>
 	</div>
 </html>
-
+<h1>Listing comics</h1>
 
 
