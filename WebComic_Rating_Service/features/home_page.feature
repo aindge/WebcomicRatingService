@@ -6,17 +6,17 @@ Feature: Add a comic to the list
     Scenario: Add a new comic (happy path)
  	    When I click "New Comic"
  	    Then I should see "New comic" 
- 	    When I fill in "Name" with "Paradox Space"
+ 	    When I fill in "Name" with "Fake Comic"
  	    And I click "Create Comic"
  	    Then I should see "Comic was successfully created."
  	    And I click "Back"
- 	    Then I should see "Paradox Space"
+ 	    Then I should see "Fake Comic"
 
     Scenario: Try to add an existing comic (sad path)
- 	    Given that there is a comic called "Homestuck"
+ 	    Given there is a comic named "Fake Comic"
 	    When I click "New Comic"
  	    Then I should see "New comic" 
- 	    When I fill in "Name" with "Homestuck"
+ 	    When I fill in "Name" with "Fake Comic"
  	    And I click "Create Comic"
  	    Then I should see "That comic already exists"
 
