@@ -1,16 +1,16 @@
 <html>
 	<head>
-  	<link rel="stylesheet" href="style.css">
+    	<link rel="stylesheet" href="style.css">
 	</head>
 	<div class="mainContainer">
 		<div class="contentBox" id="header">
-
+			<h1>Webcomic Rating Service</h1>
 		</div>
 		<div class="contentBox" id="login">
-
+			Hi, <strong>User</strong>! Login information will appear here eventually.
 		</div>
 		<div class="contentBox" id="search">
-
+			The search feature will appear here eventually!
 		</div>
 		<div class="contentBox" id="content">
 
