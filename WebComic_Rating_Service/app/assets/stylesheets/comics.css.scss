@@ -13,12 +13,14 @@ th {
 }
 
 .listingContainer {
-	box-shadow: 5px 5px 5px #888888;
+	font-family: "Arial";
+	color: #000;
 }
 
 .webComicSection {
-	background-color: #AAAADD;
+	background-color: #003;
 	width: 100%;
+	color: #fff;
 }
 
 .topRow{
@@ -26,7 +28,13 @@ th {
 }
 
 .webComicSection:hover {
-	background-color: #FFFFFF;
+	background-color: #fff;
+	color: #000;
+	transition: 0.2s;
+}
+
+.webComicSection a:hover{
+	color: #000;
 	transition: 0.2s;
 }
 
@@ -38,12 +46,13 @@ th {
 
 .contentBox{
 	box-shadow: 5px 5px 5px #888888;
-	background-color: #CCCCCC;
+	background-color: #114;
 	padding: 10px;
 }
 
 .mainContainer{
-	position:absolute;
+	margin-left: auto;
+	margin-right: auto;
 	width: 1000px;
 }
 
@@ -53,6 +62,10 @@ th {
 	margin-top: 10px;
 	width: 780px;
 	height: 80px;
+	font-size: 24pt;
+	font-family: "Times New Roman";
+	border-bottom: 5px solid #fff;
+	box-shadow: 0px 0px 0px #000;
 }
 
 #login {
@@ -61,6 +74,10 @@ th {
 	margin-top: 10px;
 	width: 185px;
 	height: 80px;
+	font-family: "Times New Roman";
+	vertical-align: center;
+	border-bottom: 5px solid #fff;
+	box-shadow: 0px 0px 0px #000;
 }
 
 #search {
@@ -69,11 +86,20 @@ th {
 	margin-top: 125px;
 	width: 1000px;
 	height: 30px;
+	font-family: "Times New Roman";
+	vertical-align: center;
+	border-bottom: 5px solid #fff;
+	box-shadow: 0px 0px 0px #000;
 }
 
 #content {
 	position: absolute;
 	margin-left: 10px;
 	margin-top: 190px;
-	width: 1000px;
+	width: 990px;
+	font-family: "Times New Roman";
+	vertical-align: center;
+	border-left: 5px solid #fff;
+	border-right: 5px solid #fff;
+	box-shadow: 0px 0px 0px #000;
 }
