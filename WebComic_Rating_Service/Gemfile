@@ -38,5 +38,13 @@ gem 'spring',        group: :development
 # Use debugger
  gem 'byebug'
 
- #
+ group :test, :development do 
+ 	gem 'cucumber-rails', :require => false
+ 	gem 'shoulda-matchers'
+ 	gem 'capybara'
+ 	# database_cleander is not required, but highly recommended
+ 	gem 'database_cleaner'
+ end
+ 	
+
 
