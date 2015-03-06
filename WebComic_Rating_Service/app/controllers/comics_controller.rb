@@ -4,6 +4,7 @@ class ComicsController < ApplicationController
   # GET /comics
   # GET /comics.json
   def index
+    debugger
     @comics = Comic.all
   end
 

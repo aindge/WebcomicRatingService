@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305005249) do
+ActiveRecord::Schema.define(version: 20150306004313) do
 
   create_table "comics", force: true do |t|
     t.string   "name"
     t.string   "author"
     t.string   "url"
-    t.string   "synopsis"
+    t.text     "synopsis",       limit: 255
     t.string   "genre"
     t.integer  "rating_art"
     t.integer  "rating_story"
