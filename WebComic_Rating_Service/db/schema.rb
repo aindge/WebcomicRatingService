@@ -13,11 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20150306004313) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comics", force: true do |t|
     t.string   "name"
     t.string   "author"
     t.string   "url"
-    t.text     "synopsis",       limit: 255
+    t.text     "synopsis"
     t.string   "genre"
     t.integer  "rating_art"
     t.integer  "rating_story"
