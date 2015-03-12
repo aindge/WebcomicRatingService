@@ -39,6 +39,15 @@
   <strong>Rating overall:</strong>
   <%= @comic.rating_overall %>
 </p>
+<p>
+	<strong>Update Schedule:</strong>
+	<%= @comic.update_schedule %>
+</p>
+
+<p>
+  <strong>Page Layout:</strong>
+  <%= @comic.page_layout %>
+</p>
 
 <%= link_to 'Edit', edit_comic_path(@comic) %> |
 <%= link_to 'Back', comics_path %>
