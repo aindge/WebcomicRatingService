@@ -38,7 +38,7 @@
       				<tr class="topRow">
 								<td colspan="3" width="30%"><%= link_to 'Show', comic %> - 
 																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
-																						<%= link_to 'Destroy', '/', :method => :delete, :confirm => 'Are you sure?' %></td>
+																						<%= link_to 'Destroy', comic, {:method => :delete, confirm: 'Are you sure?'} %></td>
         				<td width="10%"><%= comic.author %></td>
         				<td width="20%"><%= link_to comic.url, comic.url %></td>
 				        <td width="10%"><%= comic.genre %></td>

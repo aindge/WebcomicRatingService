@@ -25,17 +25,28 @@ class ComicsController < ApplicationController
   # POST /comics
   # POST /comics.json
   def create
+    
     @comic = Comic.new(comic_params)
-
+    
+    
     respond_to do |format|
-      if @comic.save
-        format.html { redirect_to @comic, notice: 'Comic was successfully created.' }
-        format.json { render :show, status: :created, location: @comic }
-      else
-        format.html { render :new }
-        format.json { render json: @comic.errors, status: :unprocessable_entity }
-      end
+        if Comic.pluck(:name).include? @comic.name
+	    format.html { redirect_to '/comics/new', notice: "Error: Comic #{@comic.name} Already Exists"} 
+        else
+	if @comic.name.empty? 
+            format.html { redirect_to '/comics/new', notice: "Required: Comic Name"}
+        else 
+            if @comic.save
+              format.html { redirect_to @comic, notice: 'Comic was successfully created.' }
+              format.json { render :show, status: :created, location: @comic }
+            else
+              format.html { render :new }
+              format.json { render json: @comic.errors, status: :unprocessable_entity }
+            end
+        end
+        end
     end
+    
   end
 
   # PATCH/PUT /comics/1
