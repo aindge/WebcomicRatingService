@@ -4,8 +4,9 @@ Feature: Add a comic to the list
     So others can see it and review it
 
     Scenario: Add a new comic (happy path)
+		Given I am on the homepage
  	    When I click "New Comic"
- 	    Then I should see "New comic" 
+ 	    Then I should be on the Create New Comics page.
  	    When I fill in "Name" with "Fake Comic"
  	    And I click "Create Comic"
  	    Then I should see "Comic was successfully created."
@@ -13,7 +14,9 @@ Feature: Add a comic to the list
  	    Then I should see "Fake Comic"
 
     Scenario: Try to add an existing comic (sad path)
- 	    Given there is a comic named "Fake Comic"
+		Given I am on the homepage
+		Then I add a comic "Fake Comic"
+ 	    Then I should see "Fake Comic"
 	    When I click "New Comic"
  	    Then I should see "New comic" 
  	    When I fill in "Name" with "Fake Comic"
@@ -21,7 +24,8 @@ Feature: Add a comic to the list
  	    Then I should see "That comic already exists"
 
     Scenario: Try to add a null comic (sad path)
- 	    When I click "New Comic"
+		Given I am on the homepage 	    
+		When I click "New Comic"
  	    Then I should see "New comic" 
  	    And I click "Create Comic"
  	    Then I should see "You need to at least enter a comic name"

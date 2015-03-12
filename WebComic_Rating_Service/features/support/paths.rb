@@ -4,6 +4,8 @@ module NavigationHelpers
   
      when /the home\s?page/
        '/'
+     when /^the Create New Comics page/
+       '/comics/new'
      else
        begin
          page_name =~ /the (.*) page/
