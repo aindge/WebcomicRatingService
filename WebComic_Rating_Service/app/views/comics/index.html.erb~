@@ -1,18 +1,4 @@
-<html>
-	<head>
-    	<link rel="stylesheet" href="style.css">
-	</head>
-	<div class="mainContainer">
-		<div class="contentBox" id="header">
-			<h1>Webcomic Rating Service</h1>
-		</div>
-		<div class="contentBox" id="login">
-			Hi, <strong>User</strong>! Login information will appear here eventually.
-		</div>
-		<div class="contentBox" id="search">
-			The search feature will appear here eventually!
-		</div>
-		<div class="contentBox" id="content">
+
 
 			<h1>Listing comics</h1>
 				<table class="listingContainer">
@@ -38,7 +24,7 @@
       				<tr class="topRow">
 								<td colspan="3" width="30%"><%= link_to 'Show', comic %> - 
 																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
-																						<%= link_to 'Destroy', comic, {:method => :delete, confirm: 'Are you sure?'} %></td>
+																						<%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'} %></td>
         				<td width="10%"><%= comic.author %></td>
         				<td width="20%"><%= link_to comic.url, comic.url %></td>
 				        <td width="10%"><%= comic.genre %></td>
@@ -59,9 +45,7 @@
 				<br>
 			
 				<%= link_to 'New Comic', new_comic_path, :id=>"New Comic" %>
-		</div>
-	</div>
-</html>
+	
 
 
 

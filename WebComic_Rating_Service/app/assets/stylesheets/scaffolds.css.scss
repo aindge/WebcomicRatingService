@@ -29,6 +29,11 @@ a {
   }
 }
 
+#header a {
+  color: #fff;
+  text-decoration: none;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
@@ -37,6 +42,16 @@ div {
 
 #notice {
   color: green;
+  border: 1px solid green;
+  background-color: #afa;
+  padding: 7px;
+}
+
+#alert {
+  color: red;
+  border: 1px solid red;
+  background-color: #faa;
+  padding: 7px;
 }
 
 .field_with_errors {

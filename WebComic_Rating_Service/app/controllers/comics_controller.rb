@@ -30,19 +30,38 @@ class ComicsController < ApplicationController
     
     
     respond_to do |format|
-        if Comic.pluck(:name).include? @comic.name
-	    format.html { redirect_to '/comics/new', notice: "Error: Comic #{@comic.name} Already Exists"} 
+	if Comic.pluck(:name).include? @comic.name
+	    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
         else
-	if @comic.name.empty? 
-            format.html { redirect_to '/comics/new', notice: "Required: Comic Name"}
-        else 
-            if @comic.save
-              format.html { redirect_to @comic, notice: 'Comic was successfully created.' }
-              format.json { render :show, status: :created, location: @comic }
-            else
-              format.html { render :new }
-              format.json { render json: @comic.errors, status: :unprocessable_entity }
-            end
+	if /http:\/\/..*[.]..*/.match @comic.url
+	  if @comic.name.empty? 
+              format.html { redirect_to '/comics/new', alert: "Required: Comic Name"}
+          else 
+              if @comic.save
+                format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully created." }
+                format.json { render :show, status: :created, location: @comic }
+              else
+                format.html { render :new }
+                format.json { render json: @comic.errors, status: :unprocessable_entity }
+              end
+          end
+        else
+          if @comic.name.empty? 
+              format.html { redirect_to '/comics/new', alert: "Required: Comic Name"}
+          else   
+	  if /..*[.]..*/.match @comic.url
+	      @comic.url = "http://" + @comic.url
+	      if @comic.save
+                format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully created." }
+                format.json { render :show, status: :created, location: @comic }
+              else
+                format.html { render :new }
+                format.json { render json: @comic.errors, status: :unprocessable_entity }
+              end
+  	  else
+	      format.html { redirect_to '/comics/new', alert: "Invalid URL. Example: http://www.example.com"}
+          end 
+	  end
         end
         end
     end
@@ -54,7 +73,7 @@ class ComicsController < ApplicationController
   def update
     respond_to do |format|
       if @comic.update(comic_params)
-        format.html { redirect_to @comic, notice: 'Comic was successfully updated.' }
+        format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully updated." }
         format.json { render :show, status: :ok, location: @comic }
       else
         format.html { render :edit }
@@ -68,7 +87,7 @@ class ComicsController < ApplicationController
   def destroy
     @comic.destroy
     respond_to do |format|
-      format.html { redirect_to '/', notice: 'Comic was successfully destroyed.' }
+      format.html { redirect_to '/', notice: "Comic \"#{@comic.name}\" was successfully deleted." }
       format.json { head :no_content }
     end
   end
