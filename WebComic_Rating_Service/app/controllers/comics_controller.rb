@@ -57,7 +57,7 @@ class ComicsController < ApplicationController
   def destroy
     @comic.destroy
     respond_to do |format|
-      format.html { redirect_to comics_url, notice: 'Comic was successfully destroyed.' }
+      format.html { redirect_to '/', notice: 'Comic was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
