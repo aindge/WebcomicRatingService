@@ -13,7 +13,7 @@ When /^I press "([^\"]*)"$/ do |button|
 end
 
 When /^I click "([^\"]*)"$/ do |link|
-   click_link(link)
+  click_on(link)
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|

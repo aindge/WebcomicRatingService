@@ -4,25 +4,33 @@ Feature: Add a comic to the list
     So others can see it and review it
 
     Scenario: Add a new comic (happy path)
- 	    When I click "New Comic"
- 	    Then I should see "New comic" 
- 	    When I fill in "Name" with "Fake Comic"
- 	    And I click "Create Comic"
- 	    Then I should see "Comic was successfully created."
- 	    And I click "Back"
+		Given I am on the homepage
+ 	    When I add a comic "Fake Comic"
  	    Then I should see "Fake Comic"
 
     Scenario: Try to add an existing comic (sad path)
- 	    Given there is a comic named "Fake Comic"
+		Given I am on the homepage
+		Then I add a comic "Fake Comic"
 	    When I click "New Comic"
  	    Then I should see "New comic" 
  	    When I fill in "Name" with "Fake Comic"
+	    And I fill in "comic[url]" with "www.something.com"
  	    And I click "Create Comic"
- 	    Then I should see "That comic already exists"
+ 	    Then I should see /Error: Comic "Fake Comic" Already Exists/
 
-    Scenario: Try to add a null comic (sad path)
- 	    When I click "New Comic"
+    Scenario: Try to add a nameless comic (sad path)
+		Given I am on the homepage 	    
+		When I click "New Comic"
  	    Then I should see "New comic" 
+	    When I fill in "comic[url]" with "www.something.com"
  	    And I click "Create Comic"
- 	    Then I should see "You need to at least enter a comic name"
-
+ 	    Then I should see "Required: Comic Name"
+   
+   Scenario: Try to add a non http url (sad path)
+	    Given I am on the homepage 	    
+	    When I click "New Comic"
+ 	    Then I should see "New comic"
+	    When I fill in "Name" with "Fake Comic"
+            And I fill in "comic[url]" with "BadURL" 
+ 	    And I click "Create Comic"
+ 	    Then I should see "Invalid URL"

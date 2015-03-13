@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
+
 
 <p>
-  <strong>Name:</strong>
-  <%= @comic.name %>
+  <h1><%= @comic.name %></h1>
 </p>
 
 <p>
@@ -38,6 +37,15 @@
 <p>
   <strong>Rating overall:</strong>
   <%= @comic.rating_overall %>
+</p>
+<p>
+	<strong>Update Schedule:</strong>
+	<%= @comic.update_schedule %>
+</p>
+
+<p>
+  <strong>Page Layout:</strong>
+  <%= @comic.page_layout %>
 </p>
 
 <%= link_to 'Edit', edit_comic_path(@comic) %> |

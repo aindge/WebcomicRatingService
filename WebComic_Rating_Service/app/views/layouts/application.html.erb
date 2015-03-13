@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebComicRatingService</title>
+  <title>Webcomic Rating Service</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
 
   <%= csrf_meta_tags %>
+
+  
 </head>
 <body>
 
-<%= yield %>
+<%= javascript_include_tag "application" %>
 
+
+	<div class="mainContainer">
+		<div class="contentBox" id="header">
+			<h1><a href="/">Webcomic Rating Service</a></h1>
+		</div>
+		<div class="contentBox" id="login">
+			Hi, <strong>User</strong>! Login information will appear here eventually.
+		</div>
+		<div class="contentBox" id="search">
+			The search feature will appear here eventually!
+		</div>
+		<div class="contentBox" id="content">
+    	<% if notice != nil %>
+			<p id="notice"><%= notice %></p>
+			<% end %>
+
+			<% if alert != nil %>
+			<p id="alert"><%= alert %></p>
+			<% end %>
+    <%= yield %>
+	  </div>
+  </div>
 </body>
 </html>
