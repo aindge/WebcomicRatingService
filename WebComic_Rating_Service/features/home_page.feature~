@@ -16,7 +16,7 @@ Feature: Add a comic to the list
  	    When I fill in "Name" with "Fake Comic"
 	    And I fill in "comic[url]" with "www.something.com"
  	    And I click "Create Comic"
- 	    Then I should see "Error: Comic "Fake Comic" Already Exists"
+ 	    Then I should see /Error: Comic "Fake Comic" Already Exists/
 
     Scenario: Try to add a nameless comic (sad path)
 		Given I am on the homepage 	    
