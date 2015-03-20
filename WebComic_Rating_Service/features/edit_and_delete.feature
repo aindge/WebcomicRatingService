@@ -13,7 +13,7 @@ Feature: Allow logged in users to edit and delete their comics
  		Given that I am logged in as "TestUser"
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Edit_TestComic"
- 	        Then I should see "New comic" 
+ 	        Then I should see "Editing comic" 
 		When I fill in "Name" with "TestComicRevised"
 		And I click "Update Comic"
 		Then I should see "TestComicRevised"
@@ -35,5 +35,3 @@ Feature: Allow logged in users to edit and delete their comics
 		And there is a comic "NachoComic" made by "BadPuns"
 		When I click "Edit_NachoComic"
 		Then I should see "That is not your comic"
-
-
