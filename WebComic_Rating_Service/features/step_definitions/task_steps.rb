@@ -19,3 +19,12 @@ Then(/^I add a comic "(.*?)"$/) do |comic|
   }
 end
 
+Given(/^a user "(.*?)" exists$/) do |user|
+  User.new(username:"#{user}")
+end
+
+Then(/^I add the test user$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+
