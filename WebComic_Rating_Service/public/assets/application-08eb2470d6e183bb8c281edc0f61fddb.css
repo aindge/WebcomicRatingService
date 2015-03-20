@@ -1,0 +1,171 @@
+table {
+  border-collapse: collapse;
+  background-color: #333388; }
+
+th {
+  background-color: #333388;
+  color: white; }
+
+.listingContainer {
+  font-family: "Arial";
+  color: #000; }
+
+.webComicSection {
+  background-color: #003;
+  width: 100%;
+  color: #fff; }
+
+.topRow {
+  text-align: center; }
+
+.webComicSection:hover {
+  background-color: #fff;
+  color: #000;
+  transition: 0.2s; }
+
+.webComicSection a:hover {
+  color: #000;
+  transition: 0.2s; }
+
+.tdSynopsis {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px; }
+
+.contentBox {
+  box-shadow: 5px 5px 5px #888888;
+  background-color: #114;
+  padding: 10px; }
+
+.mainContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px; }
+
+#header {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 780px;
+  height: 80px;
+  font-size: 24pt;
+  font-family: "Times New Roman";
+  border-bottom: 5px solid #fff;
+  box-shadow: 0px 0px 0px #000; }
+
+#login {
+  position: absolute;
+  margin-left: 825px;
+  margin-top: 10px;
+  width: 185px;
+  height: 80px;
+  font-family: "Times New Roman";
+  vertical-align: center;
+  border-bottom: 5px solid #fff;
+  box-shadow: 0px 0px 0px #000; }
+
+#search {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 125px;
+  width: 1000px;
+  height: 30px;
+  font-family: "Times New Roman";
+  vertical-align: center;
+  border-bottom: 5px solid #fff;
+  box-shadow: 0px 0px 0px #000; }
+
+#content {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 190px;
+  width: 990px;
+  font-family: "Times New Roman";
+  vertical-align: center;
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+  box-shadow: 0px 0px 0px #000; }
+body {
+  background-color: #003;
+  color: #fff;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px; }
+
+a {
+  color: #666; }
+  a:visited {
+    color: #666; }
+  a:hover {
+    color: #fff;
+    transition: 0.2s; }
+
+#header a {
+  color: #fff;
+  text-decoration: none; }
+
+div.field, div.actions {
+  margin-bottom: 10px; }
+
+#notice {
+  color: green;
+  border: 1px solid green;
+  background-color: #afa;
+  padding: 7px; }
+
+#alert {
+  color: red;
+  border: 1px solid red;
+  background-color: #faa;
+  padding: 7px; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table; }
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0; }
+  #error_explanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff; }
+  #error_explanation ul li {
+    font-size: 12px;
+    list-style: square; }
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+

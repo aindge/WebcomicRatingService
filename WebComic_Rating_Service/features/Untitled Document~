@@ -1,0 +1,11 @@
+Feature: Allow a user to create and use an account, and with that be able to delete comics that they have jurisdicion over
+    As a sysadmin 
+    I want to be able to remove duplicates, spam, or non-comic entries from the list 
+    So that one person will not be able to flood the listings with a duplicate or non-comic entry. 
+	Scenario: Delete a comic that you have power over(happy path)
+ 		Given that I am logged in as TestUser
+		And there is a comic named TestComic made by TestUser
+		When I click "Delete Comic"
+		Then I should see "Are you sure?"
+		
+	Scenario: Try to delete a comic that isn't yours(sad path)
