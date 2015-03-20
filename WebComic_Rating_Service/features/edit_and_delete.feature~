@@ -35,5 +35,3 @@ Feature: Allow logged in users to edit and delete their comics
 		And there is a comic "NachoComic" made by "BadPuns"
 		When I click "Edit_NachoComic"
 		Then I should see "That is not your comic"
-
-

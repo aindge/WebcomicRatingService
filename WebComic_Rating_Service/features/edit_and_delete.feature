@@ -9,7 +9,7 @@ Feature: Allow logged in users to edit and delete their comics
 		When I click "Delete_TestComic"
 		Then I should see "Are you sure?"
 
-	Scenario: Delete a comic that you have power over(happy path)
+	Scenario: Edit a comic that you have power over(happy path)
  		Given that I am logged in as "TestUser"
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Edit_TestComic"
