@@ -26,15 +26,20 @@
 																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
 																						<%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'} %></td>
         				<td width="10%"><%= comic.author %></td>
-        				<td width="20%"><%= link_to comic.url, comic.url %></td>
+        				<td width="20%"></td>
 				        <td width="10%"><%= comic.genre %></td>
 				        <td width="10%"><%= comic.rating_art %></td>
 				        <td width="10%"><%= comic.rating_story %></td>
 				        <td width="10%"><%= comic.rating_overall %></td>
 				      </tr>
 							<tr>
+								<td class="tdSynopsis" width="10%">URL</td>
+								<td colspan="11" width="90%"><%= link_to comic.url, comic.url %></td>
+							</tr>
+							<tr>
 								<td class="tdSynopsis" width="10%">Synopsis</td>
 								<td colspan="11" width="90%"><%= comic.synopsis %></td>
+							</tr>
 						</table>
 						</td>
 						</tr>
