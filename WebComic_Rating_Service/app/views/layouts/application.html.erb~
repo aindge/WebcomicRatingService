@@ -18,12 +18,26 @@
 			<h1><a href="/">Webcomic Rating Service</a></h1>
 		</div>
 		<div class="contentBox" id="login">
-			Hi, <strong>User</strong>! Login information will appear here eventually.
-		</div>
-		<div class="contentBox" id="search">
-			The search feature will appear here eventually!
-		</div>
-		<div class="contentBox" id="content">
+			<% if user_signed_in? %>
+				<p>Hi, <strong><%= current_user.username %></strong>, you're logged in!</p>
+				<p><%= link_to 'Log out', destroy_user_session_path, method: :delete %></p>
+			<% else %>
+				<p>Hi, it appears you're not logged in.</p>
+					<%= link_to 'Log in', new_user_session_path, method: :get %>
+					<%= link_to 'Register', new_user_registration_path, method: :get %>		
+			<% end %>
+			</div>
+			<div class="contentBox" id="search">
+					The search feature will appear here eventually!
+			</div>
+			<div class="contentBox" id="content">
+    			<% if notice != nil %>
+					<p id="notice"><%= notice %></p>
+					<% end %>
+
+			<% if alert != nil %>
+			<p id="alert"><%= alert %></p>
+			<% end %>
     <%= yield %>
 	  </div>
   </div>

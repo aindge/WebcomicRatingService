@@ -3,7 +3,7 @@ module NavigationHelpers
      case page_name
   
      when /the home\s?page/
-       '/comics'
+       '/'
      when /^the Create New Comics page/
        '/comics/new'
      when /^the Create New Account page/

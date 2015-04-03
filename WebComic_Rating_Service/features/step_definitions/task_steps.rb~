@@ -11,7 +11,16 @@ Then(/^I add a comic "(.*?)"$/) do |comic|
 end
 
 Given(/^a user "(.*?)" exists$/) do |user|
-  User.new(username:"#{user}")
+  steps %Q{  
+	Given I am on the homepage
+		And I click "Register"
+		Then I should be on the Create New Account page
+		When I fill in "Username" with "#{user}"
+		And I fill in "Password" with "TestPassword"
+		And I fill in "user[password_confirmation]" with "TestPassword"
+		And I fill in "Email" with "something@somewhere.com"
+		And I click "Submit"
+	}
 end
 
 Then(/^I add the test user$/) do
