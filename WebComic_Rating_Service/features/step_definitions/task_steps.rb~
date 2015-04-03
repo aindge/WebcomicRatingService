@@ -19,7 +19,7 @@ Given(/^a user "(.*?)" exists$/) do |user|
 		And I fill in "Password" with "TestPassword"
 		And I fill in "user[password_confirmation]" with "TestPassword"
 		And I fill in "Email" with "something@somewhere.com"
-		And I click "Submit"
+		And I click "Sign up"
 	}
 end
 
@@ -31,9 +31,10 @@ Given(/^that I am logged in as "(.*?)"$/) do |user|
   steps %Q{
     Given I am on the homepage
     And a user "#{user}" exists
+    When I click "Log in"
     Then I fill in "Username" with "#{user}"
     And I fill in "Password" with "#{user}"
-    Then I click "Log In"
+    Then I click "Sign in"
   }
 end
 

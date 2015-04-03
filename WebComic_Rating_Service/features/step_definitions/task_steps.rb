@@ -31,9 +31,11 @@ Given(/^that I am logged in as "(.*?)"$/) do |user|
   steps %Q{
     Given I am on the homepage
     And a user "#{user}" exists
+    When I click "Log out"
+    When I click "Log in"
     Then I fill in "Username" with "#{user}"
     And I fill in "Password" with "#{user}"
-    Then I click "Log In"
+    Then I click "Sign in"
   }
 end
 

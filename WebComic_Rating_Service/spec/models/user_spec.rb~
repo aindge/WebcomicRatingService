@@ -8,6 +8,10 @@ describe User do
 			zoosmell = User.create({:username => "Zoosmell", :password => "DoTheWindyThing", :email => "thewindything@notreal.com"})
 			expect(zoosmell).to be_valid
 		end
+		it 'should not allow a phantom user' do
+			nilClass = User.create({:username => nil, :password => "DoTheWindyThing", :email => "thewindything@notreal.com"})
+			expect(nilClass).to be_valid
+		end
 		it 'should not allow copycats' do
 			pooplord = User.create({:username => "Pooplord", :password => "DoTheWindyThing", :email => "thewindything@notreal.com"})
 			expect(pooplord).to be_valid
