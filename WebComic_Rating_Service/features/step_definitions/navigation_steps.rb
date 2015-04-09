@@ -47,12 +47,14 @@ When /^I choose "([^\"]*)"$/ do |field|
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
-   page.should have_content(text)
+   #page.should have_content(text)
+   expect(page).to have_content(text)
 end
 
 Then /^I should see \/([^\/]*)\/$/ do |regexp|
    regexp = Regexp.new(regexp)
-   page.should have_content(regexp)
+   #page.should have_content(regexp)
+   expect(page).to have_content(regexp)
 end
 
 Then /^I should not see "([^\"]*)"$/ do |text|
@@ -81,7 +83,8 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
-   current_path.should == path_to(page_name)
+   #current_path.should == path_to(page_name)
+   expect(current_path).to eq(path_to(page_name))
 end
 
 Then /^page should have (.+) message "([^\"]*)"$/ do |type, text|
