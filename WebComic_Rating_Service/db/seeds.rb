@@ -18,3 +18,12 @@ comicsList << [{:name => "Problem Sleuth", :author => "Andrew Hussie", :url => "
 comicsList.each do |comic|
 	Comic.create!(comic)
 end
+
+#Add User Kragmoor to user database
+usersList = [{:username => "Kragmoor", :password => "hisnameisfish", :email => "Icolston@gmail.com"}]
+#Add User sysadmin to user database
+usersList << [{:username => "sysadmin", :password => "password", :email => "someone@example.com"}]
+
+usersList.each do |user|
+	User.create!(user)
+end
