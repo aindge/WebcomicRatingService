@@ -20,7 +20,6 @@ Feature: Allow a user to create and use an account
 		Given I am on the homepage
 		And a user "TestUser" exists
 		Then I should be on the homepage
-		And I click "Log out"
 		And I click "Register"
 		Then I should be on the Create New Account page
 		When I fill in "Username" with "TestUser"
@@ -44,7 +43,6 @@ Feature: Allow a user to create and use an account
 	Scenario: Login and logout with existing user
 		Given I am on the homepage
 		And a user "TestUser" exists
-		Then I click "Log out"
 		Then I click "Log in"
 		Then I fill in "Username" with "TestUser"
 		And I fill in "Password" with "TestPassword"

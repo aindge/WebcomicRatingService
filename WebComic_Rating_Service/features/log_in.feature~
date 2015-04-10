@@ -51,6 +51,6 @@ Feature: Allow a user to create and use an account
 		Then I click "Sign in"
 		Then I should be on the homepage
 		And I should see "success"
-		Then I click "Log Out"
+		Then I click "Log out"
 		Then I should be on the homepage
-		And I should see "Success"
+		And I should see "success"

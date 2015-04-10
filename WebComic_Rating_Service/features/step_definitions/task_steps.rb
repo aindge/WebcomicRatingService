@@ -20,6 +20,8 @@ Given(/^a user "(.*?)" exists$/) do |user|
 		And I fill in "user[password_confirmation]" with "TestPassword"
 		And I fill in "Email" with "something@somewhere.com"
 		And I click "Sign up"
+		Then I should be on the home page
+		Then I click "Log out"
 	}
 end
 
@@ -27,11 +29,10 @@ Then(/^I add the test user$/) do
   pending # express the regexp above with the code you wish you had
 end
 
-Given(/^that I am logged in as "(.*?)"$/) do |user|
+Given(/^I am logged in as "(.*?)"$/) do |user|
   steps %Q{
     Given I am on the homepage
     And a user "#{user}" exists
-    When I click "Log out"
     When I click "Log in"
     Then I fill in "Username" with "#{user}"
     And I fill in "Password" with "#{user}"
