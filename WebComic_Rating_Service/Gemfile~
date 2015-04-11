@@ -25,7 +25,6 @@ group :test do
 end
 
 group :production do
-
   # Use unicorn as the web server removes lots of potential heroku issues.
   gem 'unicorn'
   gem 'rails_12factor'

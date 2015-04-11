@@ -3,9 +3,23 @@ Feature: Allow logged in users to edit and delete their comics
     I want to be able to remove duplicates, spam, or non-comic entries from the list 
     So that one person will not be able to flood the listings with a duplicate or non-comic entry. 
 
+
+Background: users have been added to the db
+
+  Given the following users exist:
+  	| username	| password 	|  email		|
+        | TestUser	| TestPassword  | testeamail@gmail.com  |
+	| Sysadmin	| adminpassword	| testadmin@gmail.com | 
+
 	Scenario: Delete a comic that you have permission to delete(happy path)
 		Given I am on the homepage
- 		And I am logged in as "TestUser"
+		And a user "TestUser" exists
+		Then I click "Log out"
+		Then I click "Log in"
+		Then I fill in "Username" with "TestUser"
+		And I fill in "Password" with "TestPassword"
+		Then I click "Sign in"
+		Then I should be on the homepage
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Delete_TestComic"
 		Then I should see "Are you sure?"
@@ -38,7 +52,7 @@ Feature: Allow logged in users to edit and delete their comics
  		And I am logged in as "Sysadmin"
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Edit_TestComic"
-		Then I should be on the Edit comic page 
+ 	    	Then I should be on the Edit comic page 
 		When I fill in "Name" with "TestComicRevised"
 		And I click "Update Comic"
 		Then I should see "TestComicRevised"

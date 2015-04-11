@@ -1,0 +1,40 @@
+
+
+SimpleCov Report:
+	57.33% total
+	100% in all except comics_controller.rb
+
+Reek Report:
+	59 total warnings, 37 in comics_controller.rb
+Flog Report: 
+   689.4: flog total
+    10.9: flog/method average
+
+   226.9: main#none
+    82.0: ComicsController#update          ./app/controllers/comics_controller.rb:73
+    79.1: ComicsController#create          ./app/controllers/comics_controller.rb:27
+    19.4: create_table#users               ./db/schema.rb:34
+    17.7: ComicsControllerTest::test#should update comic ./test/controllers/comics_controller_test.rb:37
+
+Rake Stats Report:
++----------------------+-------+-------+---------+---------+-----+-------+
+| Name                 | Lines |   LOC | Classes | Methods | M/C | LOC/M |
++----------------------+-------+-------+---------+---------+-----+-------+
+| Controllers          |   144 |   110 |       2 |      10 |   5 |     9 |
+| Helpers              |     4 |     4 |       0 |       0 |   0 |     0 |
+| Models               |    15 |     9 |       2 |       0 |   0 |     0 |
+| Mailers              |     0 |     0 |       0 |       0 |   0 |     0 |
+| Javascripts          |    18 |     0 |       0 |       0 |   0 |     0 |
+| Libraries            |     0 |     0 |       0 |       0 |   0 |     0 |
+| Controller tests     |    49 |    39 |       1 |       0 |   0 |     0 |
+| Helper tests         |     4 |     3 |       1 |       0 |   0 |     0 |
+| Model tests          |     7 |     3 |       1 |       0 |   0 |     0 |
+| Mailer tests         |     0 |     0 |       0 |       0 |   0 |     0 |
+| Integration tests    |     0 |     0 |       0 |       0 |   0 |     0 |
+| Model specs          |    18 |    17 |       0 |       0 |   0 |     0 |
+| Cucumber features    |   215 |   138 |       0 |       1 |   0 |   136 |
++----------------------+-------+-------+---------+---------+-----+-------+
+| Total                |   474 |   323 |       7 |      11 |   1 |    27 |
++----------------------+-------+-------+---------+---------+-----+-------+
+  Code LOC: 123     Test LOC: 200     Code to Test Ratio: 1:1.6
+
