@@ -1,0 +1,30 @@
+Feature: Search for comics
+	As a newbie to online comics
+	I want to seach for specific comics
+	So that I can find the best comics to start off with
+
+Background: comics have been added to database
+
+  Given the following tasks exist:
+  | comic               | author       | url                |genre   |
+  | Cheddar             | Nacho Comics | www.something.com  |cheesy  |
+  | Poo Comic           | Crap Writer  | www.something.com  |comedy  |
+  | Swiss               | Nacho Comics | www.something.com  |cheesy  |
+  | American            | Nacho Comics | www.something.com  |cheesy  |
+  | Cruddy Comic        | Crap Writer  | www.something.com  |comedy  |
+  | Original Comic      | The Original | www.something.com  |boring  |
+  | Your Favorite Dies  | Bad Man      | www.something.com  |mean    |
+  | Genric Comic        | Someone      | www.something.com  |boring  |
+  | Test                | Test         | www.something.com  |boring  |
+
+  And I am on the home page
+
+Scenario: search by 
+	When I type "Cheddar" into "Search Bar"
+	And I press "Search"
+	Then I should see "Cheddar"
+	Then I should not see "Swiss"
+	Then I should not see "Test"
+	Then I should not see "American"
+
+

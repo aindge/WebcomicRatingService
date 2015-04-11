@@ -35,6 +35,12 @@ Given /the following users exist/ do |user_table|
   end
 end
 
+Given /the following comics exist/ do |comic_table|
+  comic_table.hashes.each do |comic|
+    Comic.create!(comic)
+  end
+end
+
 Given(/^I am logged in as "(.*?)"$/) do |user|
   steps %Q{
     Given I am on the homepage
