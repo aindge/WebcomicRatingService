@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/models/user.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/models/user.rb": [
         null,
         1,
         null,
@@ -15,20 +15,30 @@
         null,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/helpers/application_helper.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/helpers/comics_helper.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/helpers/comics_helper.rb": [
         1,
+        null
+      ],
+      "/home/saasbook/group6/WebComic_Rating_Service/app/models/comic.rb": [
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
         null
       ]
     },
-    "timestamp": 1428108305
+    "timestamp": 1429218040
   },
   "Cucumber Features": {
     "coverage": {
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/models/user.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/models/user.rb": [
         null,
         1,
         null,
@@ -42,7 +52,7 @@
         null,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/controllers/comics_controller.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/controllers/comics_controller.rb": [
         1,
         1,
         null,
@@ -50,7 +60,7 @@
         null,
         1,
         null,
-        21,
+        47,
         null,
         null,
         null,
@@ -161,6 +171,10 @@
         null,
         null,
         1,
+        6,
+        null,
+        null,
+        1,
         null,
         1,
         2,
@@ -172,7 +186,7 @@
         null,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/controllers/application_controller.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/controllers/application_controller.rb": [
         1,
         null,
         null,
@@ -184,26 +198,33 @@
         1,
         null,
         1,
-        20,
-        16,
-        15,
+        32,
+        34,
+        27,
         null,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/helpers/application_helper.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/helpers/comics_helper.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/helpers/comics_helper.rb": [
         1,
         null
       ],
-      "/home/saasbook/Work/Project/group6/WebComic_Rating_Service/app/models/comic.rb": [
+      "/home/saasbook/group6/WebComic_Rating_Service/app/models/comic.rb": [
         null,
         1,
+        null,
+        1,
+        6,
+        null,
+        null,
+        null,
+        null,
         null
       ]
     },
-    "timestamp": 1428108316
+    "timestamp": 1429224214
   }
 }

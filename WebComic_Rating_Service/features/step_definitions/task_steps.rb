@@ -25,10 +25,6 @@ Given(/^a user "(.*?)" exists$/) do |user|
 	}
 end
 
-Then(/^I add the test user$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 Given /the following users exist/ do |user_table|
   user_table.hashes.each do |user|
     User.create!(user)
@@ -44,7 +40,6 @@ end
 Given(/^I am logged in as "(.*?)"$/) do |user|
   steps %Q{
     Given I am on the homepage
-    And a user "#{user}" exists
     When I click "Log in"
     Then I fill in "Username" with "#{user}"
     And I fill in "Password" with "#{user}"

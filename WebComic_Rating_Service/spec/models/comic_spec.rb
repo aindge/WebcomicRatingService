@@ -1,0 +1,18 @@
+describe Comic do
+	describe 'search' do
+		it 'should call the search function' do
+			awesome1 = double('Comic', :name => "Awesome Sauce", :author => "Someone", :id => "1")
+			awesome2 = double('Comic', :name => "Something Else", :author => "Awesome Sauce", :id => "2")
+			awesome3 = double('Comic', :name => "Not Cool", :author => "Super Uncool", :id => "3")
+			expect(awesome1.name).to eq("Awesome Sauce")
+			expect(awesome2.author).to eq("Awesome Sauce")
+			expect(awesome3.name).to_not eq("Awesome Sauce")
+		end
+		it 'should find the appropriate records' do
+			awesome1 = Comic.create(:name => "Awesome Sauce", :author => "Someone", :id => "1")
+			awesome2 = Comic.create(:name => "Something Else", :author => "Awesome Sauce", :id => "2")
+			awesome3 = Comic.create(:name => "Not Cool", :author => "Super Uncool", :id => "3")
+			expect(Comic.search("Awesome Sauce")).to eq([awesome1, awesome2])
+		end
+	end
+end
