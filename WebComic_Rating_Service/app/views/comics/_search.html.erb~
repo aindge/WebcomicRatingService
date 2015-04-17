@@ -1,0 +1,6 @@
+<!-- This is the form partial for the search to be displayed in the main layout. Search results page has no underscore -->
+
+<%= form_tag :controller => 'comics', :action => 'search', :method => 'get' do %> 
+	<%= text_field_tag :search, params[:search], :id => 'search_field', :placeholder => 'Search by title, author, or genre', size: "50" %>
+	<%= submit_tag "Go!", :name => nil %> 
+<% end %> 

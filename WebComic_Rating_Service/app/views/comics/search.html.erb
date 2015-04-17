@@ -1,0 +1,55 @@
+<!-- This is the Search Results page. The search form has an underscore before its name. -->
+		<h1>Search results for '<%= params[:search] %>'
+		</h1>
+				<table class="listingContainer">
+
+					<% if @comics.empty? %>
+					
+						Sorry! We couldn't find any comics matching '<%= params[:search] %>' in our records.
+					<% end %>					
+
+					<% @comics.each do |comic| %>
+  				<thead>
+						    				
+						<tr>
+      				<th colspan="3" width="30%"><%= comic.name %></th>
+      				<th width="20%">Author</th>
+     					<th width="20%">Genre</th>
+				      <th width="10%">Art</th>
+				      <th width="10%">Story</th>
+      				<th width="10%">Overall</th>
+    				</tr>
+  				</thead>
+
+  				<tbody>
+						<tr>
+						<td colspan="9">
+    				<table class="webComicSection">
+      				<tr class="topRow">
+								<td colspan="3" width="30%"><%= link_to 'Show', comic %> - 
+																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
+																						<%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'} %></td>
+        				<td width="20%"><%= comic.author %></td>
+				        <td width="20%"><%= comic.genre %></td>
+				        <td width="10%"><%= comic.rating_art %></td>
+				        <td width="10%"><%= comic.rating_story %></td>
+				        <td width="10%"><%= comic.rating_overall %></td>
+				      </tr>
+							<tr>
+								<td class="tdSynopsis" width="10%">URL</td>
+								<td colspan="11" width="90%"><%= link_to comic.url, comic.url %></td>
+							</tr>
+							<tr>
+								<td class="tdSynopsis" width="10%">Synopsis</td>
+								<td colspan="11" width="90%"><%= comic.synopsis %></td>
+							</tr>
+						</table>
+						</td>
+						</tr>
+				    <% end %>
+				  </tbody>
+				</table>
+
+				<br />
+				<%= link_to "Back to Index", comics_path %>
+

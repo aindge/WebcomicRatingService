@@ -7,18 +7,13 @@ Feature: Allow logged in users to edit and delete their comics
 Background: users have been added to the db
 
   Given the following users exist:
-  	| username	| password 	|  email		|
-        | TestUser	| TestPassword  | testeamail@gmail.com  |
-	| Sysadmin	| adminpassword	| testadmin@gmail.com | 
+	| username	| password 			|  email		|
+	| TestUser	| TestUser  		| testeamail@gmail.com  |
+	| Sysadmin	| Sysadmin			| testadmin@gmail.com | 
 
 	Scenario: Delete a comic that you have permission to delete(happy path)
 		Given I am on the homepage
-		And a user "TestUser" exists
-		Then I click "Log out"
-		Then I click "Log in"
-		Then I fill in "Username" with "TestUser"
-		And I fill in "Password" with "TestPassword"
-		Then I click "Sign in"
+		And I am logged in as "TestUser"
 		Then I should be on the homepage
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Delete_TestComic"
