@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root :to => redirect('/comics')
 
 	post 'comics/search/' => 'comics#search'
+	get 'comics/rate/:id' => 'comics#rate', :as => :comics_rate
+	put 'comics/rate/:id' => 'comics#reviseRate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
