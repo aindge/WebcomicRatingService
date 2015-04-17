@@ -13,6 +13,27 @@ class ComicsController < ApplicationController
   def show
   end
 
+  def rate
+    @comic = Comic.find(params[:id])
+  end
+
+  def reviseRate
+    @comic = Comic.find(params[:id])
+    ratingsHash = params[:ratings]
+    if @comic.rates == nil
+	rates = 1
+    else
+        rates = @comic.rates + 1
+    end
+    art = ((@comic.rating_art * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
+    story = ((@comic.rating_story * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
+    overall = ((@comic.rating_overall * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
+    @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
+    respond_to do |format|    
+	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
+    end
+  end
+
   # GET /comics/new
   def new
     @comic = Comic.new
@@ -115,9 +136,9 @@ class ComicsController < ApplicationController
     end
   end
 
-	def search
-		@comics = Comic.search params[:search]
-	end
+  def search
+    @comics = Comic.search params[:search]
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

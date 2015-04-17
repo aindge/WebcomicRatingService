@@ -6,9 +6,9 @@ class CreateComics < ActiveRecord::Migration
       t.string :url
       t.string :synopsis
       t.string :genre
-      t.float :rating_art
-      t.float :rating_story
-      t.float :rating_overall
+      t.integer :rating_art
+      t.integer :rating_story
+      t.integer :rating_overall
       t.integer :rates
 
       t.timestamps

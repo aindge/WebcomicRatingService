@@ -3,7 +3,6 @@ require 'rails_helper'
 
 describe User do
 	describe 'Usernames' do
-		hash 
 		it 'should allow a legitmate name to work' do
 			zoosmell = User.create({:username => "Zoosmell", :password => "DoTheWindyThing", :email => "thewindything@notreal.com"})
 			expect(zoosmell).to be_valid

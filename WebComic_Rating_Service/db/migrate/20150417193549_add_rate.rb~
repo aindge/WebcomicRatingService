@@ -1,0 +1,6 @@
+class AddRate < ActiveRecord::Migration
+  def change
+	add_column :comics, :rates, :integer
+	change_column :comics, :rating_art, :float
+  end
+end

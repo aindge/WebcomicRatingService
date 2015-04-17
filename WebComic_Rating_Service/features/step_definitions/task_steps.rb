@@ -50,3 +50,12 @@ end
 Given(/^there is a comic "(.*?)" made by "(.*?)"$/) do |comic, user|
   Comic.new({:name => "#{comic}", :author => "#{user}"})
 end
+
+When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|
+  steps %Q{
+    Given I am on the homepage
+    When I click "Rate_#{comic}"
+    And I select "#{value}" from "Rate the #{field}"
+    And I press "Rate the comic!"
+  }
+end

@@ -8,8 +8,8 @@ Background: users have been added to the db
 
   Given the following users exist:
 	| username	| password 			|  email		|
-	| TestUser	| TestPassword  | testeamail@gmail.com  |
-	| Sysadmin	| adminpassword	| testadmin@gmail.com | 
+	| TestUser	| TestUser  		| testeamail@gmail.com  |
+	| Sysadmin	| Sysadmin			| testadmin@gmail.com | 
 
 	Scenario: Delete a comic that you have permission to delete(happy path)
 		Given I am on the homepage
@@ -30,7 +30,7 @@ Background: users have been added to the db
  	    Then I should be on the Edit comic page 
 		When I fill in "Name" with "TestComicRevised"
 		And I click "Update Comic"
-		Then I should see "TestComicRevised"
+		Then I should see "TestComic Revised!"
 
 	Scenario: Delete a comic as and admin(happy path)
 		Given I am on the homepage
@@ -48,7 +48,7 @@ Background: users have been added to the db
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Edit_TestComic"
  	    	Then I should be on the Edit comic page 
-		When I fill in "Name" with "TestComicRevised"
+		When I fill in "Name" with "TestComic Revised!"
 		And I click "Update Comic"
 		Then I should see "TestComicRevised"
 		

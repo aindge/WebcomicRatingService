@@ -21,9 +21,7 @@
 						<td colspan="9">
     				<table class="webComicSection">
       				<tr class="topRow">
-								<td colspan="3" width="30%"><%= link_to 'Show', comic %> - 
-																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
-																						<%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'} %></td>
+								<td colspan="3" width="30%"><%= link_to 'Show', comic %> -                 <%= link_to 'Rate', comics_rate_path(comic), :id=>"Rate_#{comic.name}" %>				  				   <% if (user_signed_in? && (current_user.username == "#{comic.author}")) %> -        	               				           <%= link_to 'Edit', edit_comic_path(comic), :id=>"Edit_#{comic.name}" %> - 								   <%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'}, :id=>"Delete_#{comic.name}" %>	         	   <% end %></td>
         				<td width="20%"><%= comic.author %></td>
 				        <td width="20%"><%= comic.genre %></td>
 				        <td width="10%"><%= comic.rating_art %></td>

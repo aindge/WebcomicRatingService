@@ -14,35 +14,26 @@ Background: comics have been added to database
   And I am on the home page
 
 Scenario: rate a comic initially
-	When I click "Cheddar_vote"
-	And I click "5"
+	When I click "Rate Cheddar"
+	When I rate "Cheddar"'s "comic overall" field with "5"
 	Then I should be on the homepage
 	And I should see /Cheddar.*5/
 
 Scenario: rate a comic again
-	When I click "Your Favorite Dies"
-	And I click "5"
+	When I click "Rate_Your Favorite Dies"
+	When I rate "Your Favorite Dies"'s "art" field with "5"
 	Then I should be on the homepage
 	And I should see /Your Favorite Dies.*5/
-	And I click "Your_Favorite_Dies_vote"
-	And I click "3"
-	Then I should be on the homepage
-	And I should see /Your Favorite Dies.*4/
-	When I click "Your_Favorite_Dies_vote"
-	And I click "1"
-	Then I should be on the homepage
-	And I should see /Your Favorite Dies.*3/
+	When I rate "Your Favorite Dies"'s "art" field with "3"
+	Then I should see /Your Favorite Dies.*4/
+	When I rate "Your Favorite Dies"'s "art" field with "1"
+	Then I should see /Your Favorite Dies.*3/
 
 Scenario: rate a comic so the averate is a decimal
-	When I click "Generic_Comic_vote"
-	And I click "5"
-	Then I should be on the homepage
+	When I rate "Generic Comic"'s "story" field with "5"
 	And I should see /Cheddar.*5/
-	And I click "Generic_Comic_vote"
-	And I click "2"
-	Then I should be on the homepage
-	And I should see /Cheddar.*3.5/
-	When I click "Generic_Comic_vote"
-	And I click "1"
-	Then I should be on the homepage
-	And I should see /Cheddar.*2.67/
+	And I click "Rate_Generic Comic"
+	When I rate "Generic Comic"'s "story" field with "2"
+	Then I should see /Cheddar.*3.5/
+	When I rate "Generic Comic"'s "story" field with "1"
+	Then I should see /Cheddar.*2.67/

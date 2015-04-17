@@ -1,0 +1,18 @@
+<p>
+  <h1><%= "Rate #{@comic.name}" %></h1>
+</p>
+
+<%= form_tag comics_rate_path(@comic), :method => :put do %>
+  <%= label :ratings, :rating_art, 'Rate the art' %>
+  <%= select :ratings, :rating_art, ['1','2','3','4','5'] %>
+  <br></br>
+  <%= label :ratings, :rating_story, 'Rate the story' %>
+  <%= select :ratings, :rating_story, ['1','2','3','4','5'] %>
+  <br></br>
+  <%= label :ratings,:rating_overall, 'Rate the comic overall' %>
+  <%= select :ratings, :rating_overall, ['1','2','3','4','5'] %>
+  <br></br>
+  <%= submit_tag 'Rate the comic!' %>
+<% end %>
+
+<%= link_to 'Back', comics_path %>

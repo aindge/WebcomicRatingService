@@ -30,7 +30,7 @@ Background: users have been added to the db
  	    Then I should be on the Edit comic page 
 		When I fill in "Name" with "TestComicRevised"
 		And I click "Update Comic"
-		Then I should see "TestComicRevised"
+		Then I should see "TestComic Revised!"
 
 	Scenario: Delete a comic as and admin(happy path)
 		Given I am on the homepage
@@ -48,10 +48,15 @@ Background: users have been added to the db
 		And there is a comic "TestComic" made by "TestUser"
 		When I click "Edit_TestComic"
  	    	Then I should be on the Edit comic page 
-		When I fill in "Name" with "TestComicRevised"
+		When I fill in "Name" with "TestComic Revised!"
 		And I click "Update Comic"
 		Then I should see "TestComicRevised"
-		
+
+	Scenario: Try to delete a comic whiel not logged in(sad path)
+		Given I am on the homepage
+		Then I should not see "Delete"	
+		Then I should not see "Edit"		
+
 	Scenario: Try to delete a comic that isn't yours(sad path)
 		Given I am on the homepage
  		And I am logged in as "TestUser"
