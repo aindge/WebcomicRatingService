@@ -20,7 +20,7 @@ When /^I click "([^\"]*)" for comic "([^\"]*)"$/ do |link, section|
 	find(".#{section}_options").click_on(link)
 end
 
-When /^show me the html$/ do
+When /^show me the html$/
 	print page.html
 end
 

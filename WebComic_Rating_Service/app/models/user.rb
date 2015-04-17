@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
 	    :presence => true,
 	    :uniqueness => true
   
+	def is_author_of(comic)
+		return username == comic.author
+	end
+	
 end

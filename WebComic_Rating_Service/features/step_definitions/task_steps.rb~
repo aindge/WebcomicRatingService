@@ -48,7 +48,16 @@ Given(/^I am logged in as "(.*?)"$/) do |user|
 end
 
 Given(/^there is a comic "(.*?)" made by "(.*?)"$/) do |comic, user|
-  Comic.new({:name => "#{comic}", :author => "#{user}"})
+  steps %Q{
+		Given I am on the homepage
+		When I click "New Comic"
+		And I fill in "Name" with "#{comic}"
+		And I fill in "Author" with "#{user}"
+		And I fill in "comic[url]" with "www.test.com"
+		And I press "Create Comic"
+		Then I should be on the homepage
+		And I should see "#{comic}"
+	}
 end
 
 When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|
@@ -58,3 +67,4 @@ When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|
     And I select "#{value}" from "Rate the #{field}"
     And I press "Rate the comic!"
   }
+end

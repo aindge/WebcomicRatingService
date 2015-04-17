@@ -27,7 +27,7 @@
 <p>
   <strong>Rating Art:</strong>
 	<% if @comic.rating_art != nil %>
-	<%= @comic.rating_art %>
+	<%= @comic.rating_art.round %>
 	<% else %>
 	This comic's art hasn't been rated.
 	<% end %>
@@ -36,7 +36,7 @@
 <p>
 	<% if @comic.rating_art != nil %>
   <strong>Rating Story:</strong>
-  <%= @comic.rating_story %>
+  <%= @comic.rating_story.round %>
 	<% else %>
 	This comic's story hasn't been rated.
 	<% end %>
@@ -45,7 +45,7 @@
 <p>
 	<% if @comic.rating_art != nil %>
   <strong>Rating Overall:</strong>
-  <%= @comic.rating_overall %>
+  <%= @comic.rating_overall.round %>
 	<% else %>
 	This comic overall hasn't been rated.
 	<% end %>

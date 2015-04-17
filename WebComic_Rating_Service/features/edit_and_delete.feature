@@ -16,41 +16,40 @@ Background: users have been added to the db
 		And I am logged in as "TestUser"
 		Then I should be on the homepage
 		And there is a comic "TestComic" made by "TestUser"
-		When I click "Delete_TestComic"
-		Then I should see "Are you sure?"
-		When I click "Yes"
+		And I should see "TestComic"
+		When I click "Delete" for comic "TestComic"
 		Then I should be on the homepage
-		And I should see "TestComic Deleted!"
+		And I should see "was successfully deleted."
 
 	Scenario: Edit a comic that you have permission to edit(happy path)
 		Given I am on the homepage
  		And I am logged in as "TestUser"
 		And there is a comic "TestComic" made by "TestUser"
-		When I click "Edit_TestComic"
- 	    Then I should be on the Edit comic page 
+		When I click "Edit" for comic "TestComic"
+		Then I should see "Editing Comic"
 		When I fill in "Name" with "TestComicRevised"
 		And I click "Update Comic"
-		Then I should see "TestComic Revised!"
+		Then I should see "was successfully changed"
 
 	Scenario: Delete a comic as and admin(happy path)
 		Given I am on the homepage
  		And I am logged in as "Sysadmin"
 		And there is a comic "TestComic" made by "TestUser"
-		When I click "Delete_TestComic"
+		When I click "Delete" for comic "TestComic"
 		Then I should see "Are you sure?"
 		When I click "Yes"
 		Then I should be on the homepage
-		And I should see "TestComic Deleted!"
+		And I should see "was successfully deleted."
 
 	Scenario: Edit a comic as an admin(happy path)
 		Given I am on the homepage
  		And I am logged in as "Sysadmin"
 		And there is a comic "TestComic" made by "TestUser"
-		When I click "Edit_TestComic"
- 	    	Then I should be on the Edit comic page 
+		When I click "Edit" for comic "TestComic"
+		Then I should see "Editing Comic"
 		When I fill in "Name" with "TestComic Revised!"
 		And I click "Update Comic"
-		Then I should see "TestComicRevised"
+		Then I should see "was successfully changed"
 
 	Scenario: Try to delete a comic whiel not logged in(sad path)
 		Given I am on the homepage

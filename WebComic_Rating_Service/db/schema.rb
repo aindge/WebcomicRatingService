@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(version: 20150417193549) do
     t.integer  "rates"
   end
 
+  create_table "helps", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "password"
     t.string   "email"
