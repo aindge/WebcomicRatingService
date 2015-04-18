@@ -1,6 +1,7 @@
 <!-- This is the Search Results page. The search form has an underscore before its name. -->
 		<h1>Search results for '<%= params[:search] %>'
 		</h1>
+			<% if @comics.empty? %> Sorry! We couldn't find any comics matching '<%= params[:search] %>' in our records. <% end %>
 				<table class="listingContainer">
 
 					<% @comics.each do |comic| %>

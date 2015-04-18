@@ -1,12 +1,8 @@
 <!-- This is the Search Results page. The search form has an underscore before its name. -->
 		<h1>Search results for '<%= params[:search] %>'
 		</h1>
+			<% if @comics.empty? %> Sorry, we couldn't find any records matching '<%= params[:search] %> in our records. <% end %>
 				<table class="listingContainer">
-
-					<% if @comics.empty? %>
-					
-						Sorry! We couldn't find any comics matching '<%= params[:search] %>' in our records.
-					<% end %>					
 
 					<% @comics.each do |comic| %>
   				<thead>
@@ -26,14 +22,23 @@
 						<td colspan="9">
     				<table class="webComicSection">
       				<tr class="topRow">
-								<td colspan="3" width="30%"><%= link_to 'Show', comic %> - 
-																						<%= link_to 'Edit', edit_comic_path(comic) %> - 
-																						<%= link_to 'Destroy', comic, :method => :delete, data: {confirm: 'Are you sure?'} %></td>
+								<td colspan="3" width="30%">
+									<div class="<%= comic.name %>_options">
+									<%= link_to 'Show', comic %> - <%= link_to 'Rate', comics_rate_path(comic), :id=>"Rate_#{comic.name}" %>				  				   <% if (user_signed_in? && current_user.is_author_of(comic)) %> -        	               				           <%= link_to 'Edit', edit_comic_path(comic), :id=>"Edit_#{comic.name}" %> - <%= link_to 'Delete', comic, :method => :delete, data: {confirm: "Are you sure you want to delete #{comic.name}? This can't be undone."}, :id=>"Delete_#{comic.name}" %>	         	   <% end %></div></td>
         				<td width="20%"><%= comic.author %></td>
 				        <td width="20%"><%= comic.genre %></td>
-				        <td width="10%"><%= comic.rating_art %></td>
-				        <td width="10%"><%= comic.rating_story %></td>
-				        <td width="10%"><%= comic.rating_overall %></td>
+				        <td width="10%"><% if comic.rating_art != nil %>
+										<%= comic.rating_art.round %>
+									<% else %>
+										N/A
+									<% end %>
+								</td>
+				        <td width="10%"><% if comic.rating_story != nil %> 
+									<%= comic.rating_story.round %>
+									<% else %> N/A <% end %></td>
+				        <td width="10%"><% if comic.rating_overall != nil %> 
+									<%= comic.rating_overall.round %>
+									<% else %> N/A <% end %></td>
 				      </tr>
 							<tr>
 								<td class="tdSynopsis" width="10%">URL</td>
@@ -49,6 +54,7 @@
 				    <% end %>
 				  </tbody>
 				</table>
+
 
 				<br />
 				<%= link_to "Back to Index", comics_path %>
