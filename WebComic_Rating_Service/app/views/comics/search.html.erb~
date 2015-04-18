@@ -51,5 +51,5 @@
 				</table>
 
 				<br />
-				<% link_to "Back to Index" comics_path %>
+				<%= link_to "Back to Index", comics_path %>
 
