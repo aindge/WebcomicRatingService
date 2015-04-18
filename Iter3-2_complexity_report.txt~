@@ -1,0 +1,48 @@
+Overall, our code did poorly in most of the examinations. It did poorly in SimpleCov because we did not test out Iteration1 code, which is a significant chunk of it. We did poorly in Reek and Flog because our code for create is complicated, and in future iterations needs to be simplified
+
+SimpleCov Report:
+	91% total
+	100% in all except comics_controller.rb
+
+Reek Report:
+	71 total warnings, 48 in comics_controller.rbz
+
+Flog Report: 
+   951.6: flog total
+    10.9: flog/method average
+
+   242.7: main#none
+    82.0: ComicsController#update          ./app/controllers/comics_controller.rb:101
+    79.1: ComicsController#create          ./app/controllers/comics_controller.rb:55
+    48.8: ComicsController#reviseRate      ./app/controllers/comics_controller.rb:20
+    25.0: describe(ratings should,)::context(given a previous rating,)::before#each ./spec/controllers/comics_controller_spec.rb:13
+    23.4: describe(search)::it#should call the search function ./spec/models/comic_spec.rb:3
+    23.3: describe(ratings should,)::context(given no previous rating,)::before#each ./spec/controllers/comics_controller_spec.rb:35
+    19.4: create_table#users               ./db/schema.rb:40
+    19.0: describe(ratings should,)::context(given no previous rating,)::it#get correct results ./spec/controllers/comics_controller_spec.rb:42
+    19.0: describe(ratings should,)::context(given a previous rating,)::it#get correct results ./spec/controllers/comics_controller_spec.rb:27
+
+
+Rake Stats Report:
++----------------------+-------+-------+---------+---------+-----+-------+
+| Name                 | Lines |   LOC | Classes | Methods | M/C | LOC/M |
++----------------------+-------+-------+---------+---------+-----+-------+
+| Controllers          |   176 |   138 |       2 |      14 |   7 |     7 |
+| Helpers              |     4 |     4 |       0 |       0 |   0 |     0 |
+| Models               |    26 |    17 |       2 |       2 |   1 |     6 |
+| Mailers              |     0 |     0 |       0 |       0 |   0 |     0 |
+| Javascripts          |    18 |     0 |       0 |       0 |   0 |     0 |
+| Libraries            |     0 |     0 |       0 |       0 |   0 |     0 |
+| Controller tests     |    49 |    39 |       1 |       0 |   0 |     0 |
+| Helper tests         |     4 |     3 |       1 |       0 |   0 |     0 |
+| Model tests          |     7 |     3 |       1 |       0 |   0 |     0 |
+| Mailer tests         |     0 |     0 |       0 |       0 |   0 |     0 |
+| Integration tests    |     0 |     0 |       0 |       0 |   0 |     0 |
+| Model specs          |    35 |    34 |       0 |       0 |   0 |     0 |
+| Controller specs     |    49 |    45 |       0 |       0 |   0 |     0 |
+| Cucumber features    |   251 |   171 |       0 |       1 |   0 |   169 |
++----------------------+-------+-------+---------+---------+-----+-------+
+| Total                |   619 |   454 |       7 |      17 |   2 |    24 |
++----------------------+-------+-------+---------+---------+-----+-------+
+  Code LOC: 159     Test LOC: 295     Code to Test Ratio: 1:1.9
+

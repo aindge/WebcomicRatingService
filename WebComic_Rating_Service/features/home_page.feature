@@ -8,6 +8,15 @@ Feature: Add a comic to the list
  	    When I add a comic "Fake Comic"
  	    Then I should see "Fake Comic"
 
+    Scenario: Add a comic with an HTTP URL (happy path)
+		Given I am on the homepage 	    
+		When I click "New Comic"
+ 	    Then I should see "New comic"
+ 	    When I fill in "Name" with "Fake Comic"
+	    When I fill in "comic[url]" with "http://www.something.com"
+ 	    And I click "Create Comic"
+ 	    Then I should see "Fake Comic"
+
     Scenario: Try to add an existing comic (sad path)
 		Given I am on the homepage
 		Then I add a comic "Fake Comic"
@@ -22,7 +31,15 @@ Feature: Add a comic to the list
 		Given I am on the homepage 	    
 		When I click "New Comic"
  	    Then I should see "New comic" 
-	    When I fill in "comic[url]" with "www.something.com"
+	    When I fill in "comic[url]" with "http://www.something.com"
+ 	    And I click "Create Comic"
+ 	    Then I should see "Required: Comic Name"
+
+    Scenario: Try to add a nameless comic with a bad URL(sad path)
+		Given I am on the homepage 	    
+		When I click "New Comic"
+ 	    Then I should see "New comic" 
+	    When I fill in "comic[url]" with "Bad URL"
  	    And I click "Create Comic"
  	    Then I should see "Required: Comic Name"
 
