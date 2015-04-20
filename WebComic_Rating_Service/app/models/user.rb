@@ -12,5 +12,11 @@ class User < ActiveRecord::Base
 	def is_author_of(comic)
 		return username == comic.author
 	end
+
+	def self.is_admin?(user)	
+		# This is a class method so that if this is accidentally called with nil, 
+		#	nothing explodes, since for the most part nil == false
+		return user != nil ? user.admin : nil
+	end
 	
 end

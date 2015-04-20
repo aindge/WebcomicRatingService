@@ -3,7 +3,6 @@ require 'rails_helper'
 
 describe User do
 	describe 'Usernames' do
-		hash 
 		it 'should allow a legitmate name to work' do
 			zoosmell = User.create({:username => "Zoosmell", :password => "DoTheWindyThing", :email => "thewindything@notreal.com"})
 			expect(zoosmell).to be_valid
@@ -13,6 +12,15 @@ describe User do
 			expect(pooplord).to be_valid
 			copycat = User.create({:username => "Pooplord", :password => "IAMBETTERTHANYOU", :email => "therealhacker@notreal.com"})
 			expect(copycat).to be_invalid
+		end
+	end
+	describe 'Admin privileges' do
+		it "should be able to tell if it's an admin" do
+			regUser = User.create({:username => "generic_user", :password => "something", :admin => false})
+			admin = User.create({:username => "generic_user", :password => "superSecret", :admin => true})
+			expect(User.is_admin?(regUser)).to eq(false)
+			expect(User.is_admin?(admin)).to eq(true)
+			expect(USer.is_admin?(nil)).to eq(nil)
 		end
 	end
 end

@@ -14,4 +14,13 @@ describe User do
 			expect(copycat).to be_invalid
 		end
 	end
+	describe 'Admin privileges' do
+		it "should be able to tell if it's an admin" do
+			regUser = User.create({:username => "generic_user", :password => "something", :admin => false})
+			admin = User.create({:username => "generic_user", :password => "superSecret", :admin => true})
+			expect(User.is_admin?(regUser)).to eq(false)
+			expect(User.is_admin?(admin)).to eq(true)
+			expect(User.is_admin?(nil)).to eq(nil)
+		end
+	end
 end
