@@ -1,0 +1,7 @@
+Initial metrics report
+
+SimpleCov
+Cucumber: 78/82 LOC 95.12%
+RSpec: 45/82 LOC 54.88%
+
+Reek: 49 problems
