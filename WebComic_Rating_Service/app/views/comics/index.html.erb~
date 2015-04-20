@@ -22,7 +22,7 @@
     				<table class="webComicSection">
       				<tr class="topRow">
 								<td colspan="3" width="30%">
-									<div class="<%= comic.name %>_settings">
+									<div class="<%= comic.name %>_options">
 									<%= link_to 'Show', comic %> - <%= link_to 'Rate', comics_rate_path(comic), :id=>"Rate_#{comic.name}" %>				  				   <% if (user_signed_in? && current_user.is_author_of(comic)) %> -        	               				           <%= link_to 'Edit', edit_comic_path(comic), :id=>"Edit_#{comic.name}" %> - <%= link_to 'Delete', comic, :method => :delete, data: {confirm: "Are you sure you want to delete #{comic.name}? This can't be undone."}, :id=>"Delete_#{comic.name}" %>	         	   <% end %></div></td>
         				<td width="20%"><%= comic.author %></td>
 				        <td width="20%"><%= comic.genre %></td>
