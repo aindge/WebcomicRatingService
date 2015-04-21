@@ -1,4 +1,7 @@
 <h4>Account Settings | My Comics
+<% if User.is_admin?(current_user) %>
+ | Admin Settings
+<% end %></h4>
 
 <h2>Edit Your Account</h2>
 

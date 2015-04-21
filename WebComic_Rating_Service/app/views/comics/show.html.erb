@@ -60,7 +60,7 @@
   <%= @comic.page_layout %>
 </p>
 
-<% if (user_signed_in? && current_user.is_author_of(@comic)) %>
+<% if (user_signed_in? && (current_user.is_author_of(@comic) || User.is_admin?(current_user))) %>
 <%= link_to 'Edit', edit_comic_path(@comic) %> | 
 <%= link_to 'Delete', @comic, :method => :delete, data: {confirm: "Are you sure you want to delete #{@comic.name}? This can't be undone."}, :id=>"Delete_#{@comic.name}" %> |
 <% end %>
