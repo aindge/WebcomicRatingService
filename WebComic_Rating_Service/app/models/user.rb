@@ -14,9 +14,10 @@ class User < ActiveRecord::Base
 	end
 
 	def self.is_admin?(user)	
-		# This is a class method so that if this is accidentally called with nil, 
+		# This is a class method so that if this is accidentally called with nil 
 		#	nothing explodes, since for the most part nil == false
-		return user != nil ? user.admin : nil
+		# In case a user isn't logged in.
+		return user != nil ? user.admin : false
 	end
 	
 end

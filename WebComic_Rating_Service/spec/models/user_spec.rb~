@@ -20,7 +20,7 @@ describe User do
 			admin = User.create({:username => "generic_user", :password => "superSecret", :admin => true})
 			expect(User.is_admin?(regUser)).to eq(false)
 			expect(User.is_admin?(admin)).to eq(true)
-			expect(USer.is_admin?(nil)).to eq(nil)
+			expect(User.is_admin?(nil)).to eq(nil)
 		end
 	end
 end

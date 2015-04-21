@@ -8,7 +8,7 @@ describe ComicsController do
       @fakeEntry.stub(:name).and_return("Legit")
       @fakeEntry.stub(:id).and_return("420")
       @ratings = {:rating_art => "4", :rating_story => "1", :rating_overall => "3"}
-    do
+    end
     context 'given a previous rating,' do
         before :each do  
           @fakeEntry.stub("rating_art".to_sym).and_return(2)
