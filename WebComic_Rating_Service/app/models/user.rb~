@@ -23,5 +23,20 @@ class User < ActiveRecord::Base
 		# In case a user isn't logged in.
 		return user != nil ? user.admin : false
 	end
-	
+
+	def check_has_rated?(num)
+		if self.has_rated == nil
+			return false
+		else
+			return self.has_rated[num] == nil ? false : self.has_rated[num]
+		end
+	end
+
+	def record_rating(num)
+		if self.has_rated == nil		
+			update_attributes!(:has_rated => {num => true})
+		else
+			update_attributes!(:has_rated => self.has_rated << {num => true})
+		end
+	end
 end

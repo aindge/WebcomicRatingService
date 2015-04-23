@@ -19,20 +19,30 @@ class ComicsController < ApplicationController
 
   def reviseRate
     @comic = Comic.find(params[:id])
-    ratingsHash = params[:ratings]
-    
-    rates = checkNum(@comic.rates) + 1
-    artVal = checkNum(@comic.rating_art)
-    storyVal = checkNum(@comic.rating_story)
-    overallVal = checkNum(@comic.rating_overall)
 
-    art = ((artVal * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
-    story = ((storyVal * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
-    overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
-
-    @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
-    respond_to do |format|    
-	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
+		if !current_user.check_has_rated?(@comic.id)		
+			ratingsHash = params[:ratings]
+    	
+    	rates = checkNum(@comic.rates) + 1
+    	artVal = checkNum(@comic.rating_art)
+    	storyVal = checkNum(@comic.rating_story)
+    	overallVal = checkNum(@comic.rating_overall)
+	
+    	art = ((artVal * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
+    	story = ((storyVal * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
+    	overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
+	
+    	@comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
+	
+			current_user.record_rating(@comic.id)			
+			
+    	respond_to do |format|    
+				format.html { redirect_to '/', notice: "#{@comic.name} rated"}
+			end
+		else
+			respond_to do |format|
+				format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
+			end
     end
   end
 

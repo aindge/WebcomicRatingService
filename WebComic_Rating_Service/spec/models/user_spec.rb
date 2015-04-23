@@ -23,4 +23,13 @@ describe User do
 			expect(User.is_admin?(nil)).to eq(false)
 		end
 	end
+	describe 'Users can only rate once per comic' do
+		it "should append to the has_rated hash" do
+			someUser = User.create({:username => "generic_user", :password => "something", :email => "something@somewhere.com", :admin => false, :has_rated => {}})
+			expect(someUser.check_has_rated?(420)).to eq(false)
+			someUser.record_rating(420)
+			expect(someUser.check_has_rated?(420)).to eq(true)
+			expect(someUser.has_rated).to eq({420 => true})
+		end
+	end
 end
