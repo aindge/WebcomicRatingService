@@ -5,8 +5,19 @@ class ComicsController < ApplicationController
   # GET /comics.json
   def index
     #debugger
-    @comics = Comic.all
+    @comics = Comic.order(sort_column + " " + sort_direction)
+    #@comics = Comic.all
   end
+
+  # code i added to make it sort  also code in comics_helper.rb
+  helper_method :sort_column, :sort_direction
+  def sort_column
+    Comic.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+ end
 
   # GET /comics/1
   # GET /comics/1.json
