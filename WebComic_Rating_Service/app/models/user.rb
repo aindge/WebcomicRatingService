@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   validates :username,
 	    :presence => true,
 	    :uniqueness => true
+
+	# Turns the hasRated column into a hash.
+	# Hash is {comic_id => boolean}
+	serialize :has_rated, Hash
   
 	def is_author_of(comic)
 		return username == comic.author
