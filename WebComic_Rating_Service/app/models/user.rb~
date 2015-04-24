@@ -21,22 +21,19 @@ class User < ActiveRecord::Base
 		# This is a class method so that if this is accidentally called with nil 
 		#	nothing explodes, since for the most part nil == false
 		# In case a user isn't logged in.
-		return user != nil ? user.admin : false
+		return user.nil? ? false : user.admin
 	end
 
 	def check_has_rated?(num)
-		if self.has_rated == nil
-			return false
-		else
-			return self.has_rated[num] == nil ? false : self.has_rated[num]
-		end
+	    hasRated = self.has_rated[num]
+	    return hasRated.nil? ? false : hasRated
 	end
 
 	def record_rating(num)
 		if self.has_rated == nil		
 			update_attributes!(:has_rated => {num => true})
 		else
-			update_attributes!(:has_rated => self.has_rated << {num => true})
+			update_attributes!(:has_rated => self.has_rated.merge({num => true}))
 		end
 	end
 end
