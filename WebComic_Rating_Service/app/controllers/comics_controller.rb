@@ -129,14 +129,15 @@ class ComicsController < ApplicationController
           format.json { render :show, status: :ok, location: @comic }
         rescue
 					
-          format.html { redirect_to edit_comic_path(@comic), alert: "Can't edit: One or more fields were invalid."}
+          format.html { redirect_to :back,  alert: "Can't edit: One or more fields were invalid."}
           format.json { render json: @comic.errors, status: :unprocessable_entity }
         end
     end
 		return
   end
 
-  helper_method :validate
+	#I left this in here just in case, but it shouldn't be called.  
+	helper_method :validate
   def validate(validation)
 	result = ""
 	url = validation[:url]
