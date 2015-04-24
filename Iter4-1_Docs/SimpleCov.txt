@@ -1,0 +1,10 @@
+Iteration 4-1 Document 2
+
+Initial SimpleCov Report:
+	57.33% total
+	100% in all except comics_controller.rb
+
+Final SimpleCov Report:
+	??.??% total
+
+Commentary

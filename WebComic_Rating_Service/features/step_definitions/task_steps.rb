@@ -64,8 +64,16 @@ end
 When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|
   steps %Q{
     Given I am on the homepage
-    When I click "Rate_#{comic}"
+    When I click "Rate" for comic "#{comic}"
     And I select "#{value}" from "Rate the #{field}"
     And I press "Rate the comic!"
+  }
+end
+
+Then (/^I switch to user "(.*?)"$/) do |user|
+  steps %Q{
+    Given I am on the homepage
+    When I click "Log out"
+    And I am logged in as "#{user}"
   }
 end
