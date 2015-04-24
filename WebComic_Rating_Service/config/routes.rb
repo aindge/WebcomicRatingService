@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 		collection do
 			get 'search' => 'comics#search'
 			post 'search' => 'comics#search'
+			get 'admin' => 'comics#admin'
 		end
 	end
 	resources :claims, only: [:new, :create, :index, :delete] do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
 	end
   root :to => redirect('/comics')
 
+	get '/' => 'comics#index'
 	post 'comics/search' => 'comics#search', :as => :comics_search
 	get 'comics/rate/:id' => 'comics#rate', :as => :comics_rate
 	put 'comics/rate/:id' => 'comics#reviseRate'
