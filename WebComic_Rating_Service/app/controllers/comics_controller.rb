@@ -47,31 +47,17 @@ class ComicsController < ApplicationController
     end	
 
     ratingsHash = params[:ratings]
-    	
-    rates = check_for_num(@comic.rates) + 1
-    artVal = check_for_num(@comic.rating_art)
-    storyVal = check_for_num(@comic.rating_story)
-    overallVal = check_for_num(@comic.rating_overall)
+    rates = @comic.rates + 1
 
     #recalculate the new ratings using the new values
-    art = ((artVal * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
-    story = ((storyVal * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
-    overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
+    art = ((@comic.rating_art * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
+    story = ((@comic.rating_story * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
+    overall = ((@comic.rating_overall * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
 	
     @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
     current_user.record_rating(@comic)			
     respond_to do |format|    
 	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
-    end
-  end
-
-  #check if a database number has been added
-  helper_method :check_for_num
-  def check_for_num(value)
-    if value.nil?
-	return 0
-    else
-	return value
     end
   end
 
@@ -87,8 +73,8 @@ class ComicsController < ApplicationController
   # POST /comics
   # POST /comics.json
   def create
-    
-    @comic = Comic.new(comic_params)
+    newComic = comic_params.merge({:rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
+    @comic = Comic.new(newComic)
     name = @comic.name
     url = @comic.url
     validation = {:name => name, :url => url}
