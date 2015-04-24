@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423170340) do
+ActiveRecord::Schema.define(version: 20150423225411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "claims", force: true do |t|
+    t.integer  "comic_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "claims", ["comic_id"], name: "index_comic_claim_id", using: :btree
+  add_index "claims", ["comic_id"], name: "index_comic_id", using: :btree
+  add_index "claims", ["user_id"], name: "index_user_claim_id", using: :btree
 
   create_table "comics", force: true do |t|
     t.string   "name"
@@ -30,7 +42,10 @@ ActiveRecord::Schema.define(version: 20150423170340) do
     t.string   "update_schedule"
     t.string   "page_layout"
     t.integer  "rates"
+    t.integer  "user_id"
   end
+
+  add_index "comics", ["user_id"], name: "index_user_comic_id", using: :btree
 
   create_table "helps", force: true do |t|
     t.datetime "created_at"

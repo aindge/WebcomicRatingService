@@ -38,7 +38,7 @@
 							<% end %>
 						</div>
 					</td>
- 				<td width="20%"><%= comic.author %></td>
+ 				<td width="20%"><%= comic.format_author_links_string %></td>
         <td width="20%"><%= comic.genre %></td>
         <td width="10%"><% if comic.rating_art != nil %>
 					<%= comic.rating_art.round %>

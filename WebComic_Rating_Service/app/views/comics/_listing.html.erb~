@@ -1,7 +1,7 @@
 <p>		
 	Sort by:
 	<tr>
- 		<th> | <%= sortable "Title", "name" %></th>
+ 		<th><%= sortable "Title", "name" %></th>
  		<th> | <%= sortable "Author", "author" %></th>
  		<th> | <%= sortable "Genre", "genre" %></th>
  		<th> | <%= sortable "Art Rating", "rating_art" %></th>

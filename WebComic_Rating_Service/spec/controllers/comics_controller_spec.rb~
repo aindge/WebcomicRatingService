@@ -2,6 +2,18 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe ComicsController do
+	describe 'user sorting' do
+		before :each do
+			@fake_entry1 = Comic.create!(name: "Legit", id: "1", user_id: "1")
+			@fake_entry2 = Comic.create!(name: "AlsoLegit", id: "2", user_id: "1")
+			@fake_entry3 = Comic.create!(name: "NotLegit", id: "3", user_id: "2")
+			@fake_user = User.create!(username: "Bob", id: "1", email: "whyverify@test.com", password: "somethingSharp")
+		end
+		it 'should add the comics into the comic register correctly' do
+			controller.show_user(1)
+			expect(@comics).to eq([@fake_entry1, @fake_entry2])
+		end
+	end
   describe 'ratings should,' do
     before :each do  
       @fakeEntry = double('fakeComic')
@@ -31,12 +43,6 @@ describe ComicsController do
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
-
-			it 'should update the has_rated hash for the user' do
-				expect(@current_user).to receive(:has_rated).with("420").and_return()
-				expect(@current_user).to receive(:record_rating).with("420")
-				@fakeEntry.stub("update".to_sym).with(@result).and_return(0)
-			end
     end
 
     context 'given no previous rating,' do

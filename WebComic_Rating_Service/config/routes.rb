@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :comics
+  resources :comics do
+		collection do
+			get 'search' => 'comics#search'
+			post 'search' => 'comics#search'
+		end
+	end
   root :to => redirect('/comics')
 
-	post 'comics/search/' => 'comics#search'
+	post 'comics/search' => 'comics#search', :as => :comics_search
 	get 'comics/rate/:id' => 'comics#rate', :as => :comics_rate
 	put 'comics/rate/:id' => 'comics#reviseRate'
+	get 'comics/user/:id' => 'comics#show_user', :as => :show_user_path
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

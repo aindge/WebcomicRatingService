@@ -17,12 +17,16 @@ class ComicsController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
- end
+ 	end
 
   # GET /comics/1
   # GET /comics/1.json
   def show
   end
+
+	def show_user
+		
+	end
 
   def rate
     @comic = Comic.find(params[:id])
@@ -139,7 +143,7 @@ class ComicsController < ApplicationController
   end
 
   def search
-    @comics = Comic.search params[:search]
+		@comics = Comic.search( params[:search], sort_column, sort_direction)
   end
 
   private

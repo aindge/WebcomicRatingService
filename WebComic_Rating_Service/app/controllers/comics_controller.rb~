@@ -5,13 +5,28 @@ class ComicsController < ApplicationController
   # GET /comics.json
   def index
     #debugger
-    @comics = Comic.all
+    @comics = Comic.order(sort_column + " " + sort_direction)
+    #@comics = Comic.all
   end
+
+  # code i added to make it sort  also code in comics_helper.rb
+  helper_method :sort_column, :sort_direction
+  def sort_column
+    Comic.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+ 	end
 
   # GET /comics/1
   # GET /comics/1.json
   def show
   end
+
+	def show_user
+		
+	end
 
   def rate
     @comic = Comic.find(params[:id])
@@ -41,7 +56,7 @@ class ComicsController < ApplicationController
 			end
 		else
 			respond_to do |format|
-				format.html { redirect_to '/', warning: "Error: You've already rated #{@comic.name}."}
+				format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
 			end
     end
   end
@@ -128,7 +143,7 @@ class ComicsController < ApplicationController
   end
 
   def search
-    @comics = Comic.search params[:search]
+		@comics = Comic.search params[:search], sort_column, sort_direction
   end
 
   private

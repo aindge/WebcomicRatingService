@@ -2,6 +2,18 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe ComicsController do
+	describe 'user sorting' do
+		before :each do
+			@fake_entry1 = Comic.create!(name: "Legit", id: "1", user_id: "1")
+			@fake_entry2 = Comic.create!(name: "AlsoLegit", id: "2", user_id: "1")
+			@fake_entry3 = Comic.create!(name: "NotLegit", id: "3", user_id: "2")
+			@fake_user = User.create!(username: "Bob", id: "1", email: "whyverify@test.com", password: "somethingSharp")
+		end
+		it 'should add the comics into the comic register correctly' do
+			controller.show_user(1)
+			expect(@comics).to eq([@fake_entry1, @fake_entry2])
+		end
+	end
   describe 'ratings should,' do
     before :each do  
       @fakeEntry = double('fakeComic')
