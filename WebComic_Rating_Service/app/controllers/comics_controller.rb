@@ -40,7 +40,7 @@ class ComicsController < ApplicationController
     @comic = Comic.find(params[:id])
 
     #prevent users from rating again
-    if current_user.check_has_rated?(@comic.id)	
+    if current_user.check_has_rated?(@comic)	
 	respond_to do |format|
 	    format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
 	end
@@ -59,7 +59,7 @@ class ComicsController < ApplicationController
     overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
 	
     @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
-    current_user.record_rating(@comic.id)			
+    current_user.record_rating(@comic)			
     respond_to do |format|    
 	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
     end

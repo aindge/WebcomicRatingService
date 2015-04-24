@@ -28,6 +28,10 @@
   <strong>Rating Art:</strong>
 	<% if @comic.rating_art != nil %>
 	<%= @comic.rating_art %>
+	<% if current_user.has_rated[@comic.id] != nil %>
+	<strong>You Rated:</strong>
+	<%= current_user.has_rated[@comic.id][0] %>
+	<% end %>
 	<% else %>
 	This comic's art hasn't been rated.
 	<% end %>
@@ -37,6 +41,10 @@
 	<% if @comic.rating_art != nil %>
   <strong>Rating Story:</strong>
   <%= @comic.rating_story %>
+	<% if current_user.has_rated[@comic.id] != nil %>
+	<strong>You Rated:</strong>
+	<%= current_user.has_rated[@comic.id][1] %>
+	<% end %>
 	<% else %>
 	This comic's story hasn't been rated.
 	<% end %>
@@ -46,6 +54,10 @@
 	<% if @comic.rating_art != nil %>
   <strong>Rating Overall:</strong>
   <%= @comic.rating_overall %>
+	<% if current_user.has_rated[@comic.id] != nil %>
+	<strong>You Rated:</strong>
+	<%= current_user.has_rated[@comic.id][2] %>
+	<% end %>
 	<% else %>
 	This comic overall hasn't been rated.
 	<% end %>

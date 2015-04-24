@@ -28,16 +28,16 @@ class User < ActiveRecord::Base
 		return user.nil? ? false : user.admin
 	end
 
-	def check_has_rated?(num)
-	    hasRated = self.has_rated[num]
-	    return hasRated.nil? ? false : hasRated
+	def check_has_rated?(comic)
+	    hasRated = self.has_rated[comic.id]
+	    return hasRated.nil? ? false : true
 	end
 
-	def record_rating(num)
-		if self.has_rated == nil		
-			update_attributes!(:has_rated => {num => true})
+	def record_rating(comic)
+		if self.has_rated[comic.id].nil?
+			update_attributes!(:has_rated => {comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]})
 		else
-			update_attributes!(:has_rated => self.has_rated.merge({num => true}))
+			update_attributes!(:has_rated => self.has_rated.merge({comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]}))
 		end
 	end
 end
