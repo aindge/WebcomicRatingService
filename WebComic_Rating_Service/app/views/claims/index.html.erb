@@ -1,0 +1,42 @@
+<h1>Claims</h1>
+User | <%= link_to "Claims (#{Claim.count})", claims_path %>
+
+<% if Claim.count == 0 %>
+	<h2>No outstanding claims found. You're all caught up!</h2>
+<% else %>
+	<h2><%= Claim.count %> outstanding claim<%= Claim.count > 1 ? "s" : "" %> found.</h2>
+<table class="listingContainer">
+  <% @claims.each do |claim| %>		
+	<thead>		    				
+		<tr>
+			<th colspan="3" width="30%">From User</th>
+			<th width="10%">User ID</th>
+			<th width="30%">For Comic</th>
+      <th width="10%">Comic ID</th>
+			<th width="20%">Resolve</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<td colspan="9">
+		<table class="webComicSection">
+			<tr class="topRow">
+				<td colspan="3" width="30%">
+					<%= User.find(claim.user_id).username %>
+					</td>
+ 				<td width="10%"><%= claim.user_id %></td>
+        <td width="30%"><%= Comic.find(claim.comic_id).name %></td>
+        <td width="10%"><%= claim.comic_id %></td>
+        <td width="20%">Approve | <%= link_to "Reject", reject_claims_path(claim), :method => 'delete' %></td>
+      </tr>
+			<tr>
+				<td class="tdSynopsis" width="10%">Information</td>
+				<td colspan="11" width="90%"><%= claim.body %></td>
+			</tr>
+		</table>
+		</td>
+		</tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -4,6 +4,10 @@
   <h1><%= @comic.name %></h1>
 </p>
 
+<% if @comic.user_id == nil %>
+This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?", "/claims/new?comic_id=#{@comic.id}" %>
+<% end %>
+
 <p>
   <strong>Author:</strong>
   <%= @comic.author %>
@@ -25,8 +29,8 @@
 </p>
 
 <p>
-  <strong>Rating Art:</strong>
 	<% if @comic.rating_art != nil %>
+  <strong>Rating Art:</strong>
 	<%= @comic.rating_art %>
 	<% else %>
 	This comic's art hasn't been rated.

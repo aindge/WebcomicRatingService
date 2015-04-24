@@ -3,6 +3,10 @@ class Comic < ActiveRecord::Base
 	belongs_to :user
 	has_many :claims
 
+	validates :name, presence: true
+	validates :synopsis, presence: true
+	validates_format_of :url, :with => /http:\/\/..*[.]..*/, :on => [:create, :update]
+
 	def self.search(search_condition, column, direction)
 		user = User.where(['lower(username) LIKE lower(?)', "%#{search_condition}%"]).first
 		if user != nil
@@ -13,6 +17,10 @@ class Comic < ActiveRecord::Base
 			result = Comic.where(['lower(name) LIKE lower(?) OR lower(author) LIKE lower(?) OR lower(genre) LIKE lower(?)', 
 														"%#{search_condition}%", "%#{search_condition}%", "%#{search_condition}%"]).order(column + " " + direction)
 		end
+	end
+
+	def check_and_fix_url
+		return /http:\/\/..*[.]..*/.match url ? url : (/..*[.]..*/.match url ? "http://" << url : nil)
 	end
 
 	def format_author_links_string()

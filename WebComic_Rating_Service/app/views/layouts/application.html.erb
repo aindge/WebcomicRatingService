@@ -23,7 +23,7 @@
 				<p><%= link_to 'Log out', destroy_user_session_path, method: :delete %>
 					| <%= link_to 'Settings', edit_user_registration_path %>
 				<% if User.is_admin?(current_user) %>
-					| Admin
+					| <%= link_to 'Admin', '/comics/admin' %>
 				<% end %>
 				</p>
 			<% else %>

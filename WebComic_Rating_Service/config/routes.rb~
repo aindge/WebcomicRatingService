@@ -6,12 +6,17 @@ Rails.application.routes.draw do
 			post 'search' => 'comics#search'
 		end
 	end
+	resources :claims, only: [:new, :create, :index, :delete] do
+		collection do
+			get 'reject/:id' => 'claims#destroy', :as => :reject
+		end
+	end
   root :to => redirect('/comics')
 
 	post 'comics/search' => 'comics#search', :as => :comics_search
 	get 'comics/rate/:id' => 'comics#rate', :as => :comics_rate
 	put 'comics/rate/:id' => 'comics#reviseRate'
-	get 'comics/user/:id' => 'comics#show_user', :as => :show_user_path
+	get 'comics/user/:id' => 'comics#show_user', :as => :show_user
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -87,49 +87,53 @@ class ComicsController < ApplicationController
   # POST /comics
   # POST /comics.json
   def create
-    
+		ok = true    
     @comic = Comic.new(comic_params)
-    name = @comic.name
-    url = @comic.url
-    validation = {:name => name, :url => url}
-    error = validate(validation)
-   
+    @comic.url = @comic.check_and_fix_url
     respond_to do |format|
-	if Comic.pluck(:name).include? name
+		if Comic.pluck(:name).include? @comic.name
 	    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{name}\" Already Exists"} 
-        end
+			ok = false
+    end
 
-	if error != ""
-              format.html { redirect_to '/comics/new', alert: "#{error}"}
-        end
+		#if error != ""
+     #         format.html { redirect_to '/comics/new', alert: "#{error}"}
+     #   end
 	   
-        if @comic.save
+        begin 
+					@comic.save!
           format.html { redirect_to @comic, notice: "Comic \"#{name}\" was successfully created." }
           format.json { render :show, status: :created, location: @comic }
-        else
-          format.html { render :new }
+        rescue
+					@error = nil          
+					format.html { render :new}
           format.json { render json: @comic.errors, status: :unprocessable_entity }
         end
     end
+		return
   end
 
   # PATCH/PUT /comics/1
   # PATCH/PUT /comics/1.json
   def update
-    error = validate(comic_params)
-    respond_to do |format|
-	if error != ""
-          format.html { redirect_to edit_comic_path(@comic), alert: "#{error}"}
-        end
-
-	if @comic.update(comic_params)
+    
+		@comic.url = @comic.check_and_fix_url
+		if Comic.pluck(:name).include? @comic.name && Comic.where(:name => @comic.name).first.id != @comic.id
+	    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
+			ok = false
+    end
+		respond_to do |format|
+				begin
+		 			@comic.update_attributes!(comic_params)
           format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully changed." }
           format.json { render :show, status: :ok, location: @comic }
-        else
-          format.html { render edit_comic_path(@comic) }
+        rescue
+					
+          format.html { redirect_to edit_comic_path(@comic), alert: "Can't edit: One or more fields were invalid."}
           format.json { render json: @comic.errors, status: :unprocessable_entity }
         end
     end
+		return
   end
 
   helper_method :validate
@@ -166,6 +170,20 @@ class ComicsController < ApplicationController
   def search
 		@comics = Comic.search(params[:search], sort_column, sort_direction)
   end
+
+	def admin
+		if !user_signed_in?
+			respond_to do |format|
+				format.html { redirect_to new_user_session_path, alert: "You need to log in to perform this action." }
+			end
+			return
+		elsif !User.is_admin?(current_user)
+			respond_to do |format|
+				format.html { redirect_to '/', alert: "You do not have permission to do this." }
+			end
+			return
+		end
+	end
 
   private
     # Use callbacks to share common setup or constraints between actions.
