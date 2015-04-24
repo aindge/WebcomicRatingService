@@ -1,0 +1,18 @@
+Iteration 4-1 Document 1
+
+Feature: Sort comics by rank
+As a newbie to online comics
+I want to sort comics by their rating
+So that I can find the best comic to start off with.
+
+Feature: Rate comics
+As an judgemental comics rater
+I want rating comics to be limited to users
+So that admin can't skew data
+
+Feature: Edit and delete comic listings
+As an admin of WebComics Rating Service
+I want to be able to edit and delete comic listings
+So that I can maintain the database
+
+Of these stories, one was from our initial meeting with our customers. The other two are extensions of previous stories. When we talked to our customers, they affirmed that this is what they wanted for this iteration. They also made an additional request, but it was not possible to include that in the duration of one iteration.

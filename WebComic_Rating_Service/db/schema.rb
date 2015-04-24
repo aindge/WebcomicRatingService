@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20150423225411) do
   end
 
   add_index "claims", ["comic_id"], name: "index_comic_claim_id", using: :btree
-  add_index "claims", ["comic_id"], name: "index_comic_id", using: :btree
   add_index "claims", ["user_id"], name: "index_user_claim_id", using: :btree
 
   create_table "comics", force: true do |t|
@@ -46,11 +45,6 @@ ActiveRecord::Schema.define(version: 20150423225411) do
   end
 
   add_index "comics", ["user_id"], name: "index_user_comic_id", using: :btree
-
-  create_table "helps", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "password"

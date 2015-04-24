@@ -31,6 +31,18 @@
     <%= f.label :genre %><br>
     <%= f.text_field :genre %>
   </div>
+  <div class="field">
+    <%= f.label :rating_art %><br>
+    <%= f.number_field :rating_art %>
+  </div>
+  <div class="field">
+    <%= f.label :rating_story %><br>
+    <%= f.number_field :rating_story %>
+  </div>
+  <div class="field">
+    <%= f.label :rating_overall %><br>
+    <%= f.number_field :rating_overall %>
+  </div>
 	<div class="field">
 		<%= f.label :update_schedule %><br>
 		<%= f.text_field :update_schedule %>
