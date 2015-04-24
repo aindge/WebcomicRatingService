@@ -2,26 +2,42 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe ComicsController do
-	describe 'user sorting' do
-		before :each do
-			@fake_entry1 = Comic.create!(name: "Legit", id: "1", user_id: "1")
-			@fake_entry2 = Comic.create!(name: "AlsoLegit", id: "2", user_id: "1")
-			@fake_entry3 = Comic.create!(name: "NotLegit", id: "3", user_id: "2")
-			@fake_user = User.create!(username: "Bob", id: "1", email: "whyverify@test.com", password: "somethingSharp")
-		end
-		it 'should add the comics into the comic register correctly' do
-			controller.show_user(1)
-			expect(@comics).to eq([@fake_entry1, @fake_entry2])
-		end
-	end
+  describe 'sort should' do
+    it 'run when the index page is loaded' do
+      expect(Comic).to receive(:order).with("name asc")
+      get :index
+    end
+    context 'use the helpers to' do
+      it 'call a custom ' do
+        expect(Comic).to receive(:order).with("genre desc")
+        get :index, {:direction => "desc", :sort => "genre"}
+      end
+      it 'use only default order with specified item' do
+        expect(Comic).to receive(:order).with("genre asc")
+        get :index, {:sort => "genre"}
+      end
+      it 'use only default item with specified order' do
+        expect(Comic).to receive(:order).with("name desc")
+        get :index, {:direction => "desc"}
+      end
+      it 'use default order for nonsensical item' do
+        expect(Comic).to receive(:order).with("name asc")
+        get :index, {:direction => "turnways"}
+      end
+      it 'use default item for nonsensical item' do
+        expect(Comic).to receive(:order).with("name asc")
+        get :index, {:sort => "zoosmell"}
+      end
+    end
+  end
   describe 'ratings should,' do
     before :each do  
       @fakeEntry = double('fakeComic')
       @fakeEntry.stub(:name).and_return("Legit")
       @fakeEntry.stub(:id).and_return("420")
       @ratings = {:rating_art => "4", :rating_story => "1", :rating_overall => "3"}
-			someone = User.create({:username => "generic_user", :password => "something", :email => "something@somewhere.com", :admin => false, :has_rated => {}})
-			@current_user = controller.stub(:current_user).and_return(someone)
+      @someone = User.create({:username => "generic_user", :password => "something", :email => "something@somewhere.com", :admin => false, :has_rated => {}})
+      @current_user = controller.stub(:current_user).and_return(@someone)
     end
     context 'given a previous rating,' do
         before :each do  

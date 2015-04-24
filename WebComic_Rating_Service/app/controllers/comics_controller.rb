@@ -1,3 +1,4 @@
+#controller class for the comics database
 class ComicsController < ApplicationController
   before_action :set_comic, only: [:show, :edit, :update, :destroy]
 
@@ -25,42 +26,47 @@ class ComicsController < ApplicationController
   end
 
 	def show_user
-		
+		#TODO link to comics/user/:id showing comics by user with id :id
+		redirect_to root
 	end
 
+  #GET comics/rating
   def rate
     @comic = Comic.find(params[:id])
   end
 
+  #PUT comics/rating
   def reviseRate
     @comic = Comic.find(params[:id])
 
-		if !current_user.check_has_rated?(@comic.id)		
-			ratingsHash = params[:ratings]
+    #prevent users from rating again
+    if current_user.check_has_rated?(@comic.id)	
+	respond_to do |format|
+	    format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
+	end
+    end	
+
+    ratingsHash = params[:ratings]
     	
-    	rates = checkNum(@comic.rates) + 1
-    	artVal = checkNum(@comic.rating_art)
-    	storyVal = checkNum(@comic.rating_story)
-    	overallVal = checkNum(@comic.rating_overall)
+    rates = checkNum(@comic.rates) + 1
+    artVal = checkNum(@comic.rating_art)
+    storyVal = checkNum(@comic.rating_story)
+    overallVal = checkNum(@comic.rating_overall)
+
+    #recalculate the new ratings using the new values
+    art = ((artVal * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
+    story = ((storyVal * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
+    overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
 	
-    	art = ((artVal * (rates - 1)) + ratingsHash[:rating_art].to_i) / rates
-    	story = ((storyVal * (rates - 1)) + ratingsHash[:rating_story].to_i) / rates
-    	overall = ((overallVal * (rates - 1)) + ratingsHash[:rating_overall].to_i) / rates
-	
-    	@comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
-	
-			current_user.record_rating(@comic.id)			
-			
-    	respond_to do |format|    
-				format.html { redirect_to '/', notice: "#{@comic.name} rated"}
-			end
-		else
-			respond_to do |format|
-				format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
-			end
+    @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
+    current_user.record_rating(@comic.id)			
+    respond_to do |format|    
+	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
     end
   end
 
+  #check if a database number has been added
+  helper_method :check_num
   def checkNum(value)
     if(value == nil)
 	return 0
@@ -91,6 +97,9 @@ class ComicsController < ApplicationController
         end
 
 	if /http:\/\/..*[.]..*/.match @comic.url or /..*[.]..*/.match @comic.url
+	   #do nothing - I don't know how to make this return for not match so I put the if nothing else something
+	   #the logic should be: if notmatch(/http:\/\/..*[.]..*/) and notmatch(/..*[.]..*/)
+	   #that's pseudo code but you get the idea
   	else
 	  format.html { redirect_to '/comics/new', alert: "Invalid URL. Example: http://www.example.com"}
         end 
@@ -114,6 +123,9 @@ class ComicsController < ApplicationController
   def update
     respond_to do |format|
 	if /http:\/\/..*[.]..*/.match comic_params[:url] or /..*[.]..*/.match comic_params[:url]
+	   #do nothing - I don't know how to make this return for not match so I put the if nothing else something
+	   #the logic should be: if notmatch(/http:\/\/..*[.]..*/) and notmatch(/..*[.]..*/)
+	   #that's pseudo code but you get the idea
   	else 
 	 format.html { redirect_to edit_comic_path(@comic) , alert: "Invalid URL. Example: http://www.example.com"}
         end 
@@ -142,8 +154,9 @@ class ComicsController < ApplicationController
     end
   end
 
+	# POST /comics/search
   def search
-		@comics = Comic.search( params[:search], sort_column, sort_direction)
+		@comics = Comic.search(params[:search], sort_column, sort_direction)
   end
 
   private
