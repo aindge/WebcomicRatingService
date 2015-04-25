@@ -29,6 +29,7 @@ group :production do
   # Use unicorn as the web server removes lots of potential heroku issues.
   gem 'unicorn'
   gem 'rails_12factor'
+  gem 'metric_fu'
 end
 
 # Gems used only for assets and not required
