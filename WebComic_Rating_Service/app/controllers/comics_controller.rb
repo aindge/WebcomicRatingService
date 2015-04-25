@@ -79,22 +79,16 @@ class ComicsController < ApplicationController
   # POST /comics.json
   def create
     ok = true    
-    newComic = comic_params.merge({:rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
-    @comic = Comic.new(newComic)
+    @comic = Comic.new(comic_params)
     @comic.url = @comic.check_and_fix_url
     respond_to do |format|
       if Comic.pluck(:name).include? @comic.name
-	format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{name}\" Already Exists"} 
-	ok = false
+				format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
+				ok = false
       end
-
-     #if error != ""
-     #  format.html { redirect_to '/comics/new', alert: "#{error}"}
-     #end
-	   
       begin 
-	@comic.save!
-        format.html { redirect_to @comic, notice: "Comic \"#{name}\" was successfully created." }
+				@comic.save!
+        format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully created." }
         format.json { render :show, status: :created, location: @comic }
      rescue
 	@error = nil          

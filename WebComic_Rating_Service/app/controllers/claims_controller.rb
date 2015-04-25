@@ -33,6 +33,7 @@ class ClaimsController < ApplicationController
 			end
 			return
 		end
+		debugger
 		@claim.destroy!
 		respond_to do |format|
       format.html { redirect_to claims_path, notice: "The claim was successfully rejected." }

@@ -9,7 +9,7 @@ Background: There is a user are you are logged in
   And I am logged in as "JadeHarley"
 
     Scenario: Add a new comic (happy path)
-		Given I am on the homepage
+	    Given I am on the homepage
  	    When I add a comic "Fake Comic"
  	    Then I should see "Fake Comic"
 
@@ -19,6 +19,7 @@ Background: There is a user are you are logged in
  	    Then I should see "New comic"
  	    When I fill in "Name" with "Fake Comic"
 	    When I fill in "comic[url]" with "http://www.something.com"
+			And I fill in "comic[synopsis]" with "stuff"
  	    And I click "Create Comic"
  	    Then I should see "Fake Comic"
 
@@ -38,7 +39,7 @@ Background: There is a user are you are logged in
  	    Then I should see "New comic" 
 	    When I fill in "comic[url]" with "http://www.something.com"
  	    And I click "Create Comic"
- 	    Then I should see "Required: Comic Name"
+ 	    Then I should see "Name can't be blank"
 
     Scenario: Try to add a nameless comic with a bad URL(sad path)
 		Given I am on the homepage 	    

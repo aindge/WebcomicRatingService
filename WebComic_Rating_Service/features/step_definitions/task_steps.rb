@@ -8,6 +8,7 @@ Then(/^I add a comic "(.*?)"$/) do |comic|
     And I fill in "Synopsis" with "Bluh"
     And I click "Create Comic"
     And I click "Back"
+		And I go to the homepage
   }
 end
 
@@ -52,8 +53,11 @@ Given(/^I am logged in as "(.*?)"$/) do |user|
 end
 
 Given(/^there is a comic "(.*?)" made by "(.*?)"$/) do |comic, user|
-    newComic = ({:name => "#{comic}", :name => "#{user}", :name => "http://www.#{comic}.com", :synopsis => "bluh", :rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
+    newComic = ({:name => "#{comic}", :author => "#{user}", :url => "http://www.#{comic}.com", :synopsis => "bluh", :rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
     Comic.create!(newComic)
+		steps %Q{
+			Then I go to the homepage
+		}
 end
 
 When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|

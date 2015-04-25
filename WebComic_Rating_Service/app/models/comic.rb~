@@ -17,12 +17,11 @@ class Comic < ActiveRecord::Base
 			result = Comic.where(['lower(name) LIKE lower(?) OR lower(author) LIKE lower(?) OR lower(genre) LIKE lower(?)', 
 														"%#{search_condition}%", "%#{search_condition}%", "%#{search_condition}%"]).order(column + " " + direction)
 		end
-		debugger
 		return result
 	end
 
 	def check_and_fix_url
-		return /http:\/\/..*[.]..*/.match url ? url : (/..*[.]..*/.match url ? "http://" << url : nil)
+		return url
 	end
 
 	def format_author_links_string()

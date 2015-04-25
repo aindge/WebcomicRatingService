@@ -21,7 +21,7 @@ class Comic < ActiveRecord::Base
 	end
 
 	def check_and_fix_url
-		return /http:\/\/..*[.]..*/.match url ? url : (/..*[.]..*/.match url ? "http://" << url : nil)
+		return url
 	end
 
 	def format_author_links_string()

@@ -16,6 +16,7 @@ Background: users have been added to the db
 		And I am logged in as "TestUser"
 		Then I should be on the homepage
 		And there is a comic "TestComic" made by "TestUser"
+		Then I go to the homepage
 		And I should see "TestComic"
 		When I click "Delete" for comic "TestComic"
 		Then I should be on the homepage

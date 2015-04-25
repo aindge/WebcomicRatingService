@@ -45,8 +45,9 @@ Feature: Allow a user to create and use an account
 		And a user "TestUser" exists
 		Then I click "Log in"
 		Then I fill in "Username" with "TestUser"
-		And I fill in "Password" with "TestPassword"
+		And I fill in "Password" with "TestUser"
 		Then I click "Sign in"
+		Then show me the html
 		Then I should be on the homepage
 		And I should see "success"
 		Then I click "Log out"
