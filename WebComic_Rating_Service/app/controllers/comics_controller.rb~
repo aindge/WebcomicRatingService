@@ -79,6 +79,7 @@ class ComicsController < ApplicationController
   # POST /comics.json
   def create
     ok = true    
+    @comic = Comic.new(comic_params)
     newComic = comic_params.merge({:rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
     @comic = Comic.new(newComic)
     @comic.url = @comic.check_and_fix_url

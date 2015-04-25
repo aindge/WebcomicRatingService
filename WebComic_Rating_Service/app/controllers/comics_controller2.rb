@@ -78,56 +78,70 @@ class ComicsController < ApplicationController
   # POST /comics
   # POST /comics.json
   def create
-    ok = true    
     newComic = comic_params.merge({:rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
     @comic = Comic.new(newComic)
-    @comic.url = @comic.check_and_fix_url
+    name = @comic.name
+    url = @comic.url
+    validation = {:name => name, :url => url}
+    error = validate(validation)
+   
     respond_to do |format|
-      if Comic.pluck(:name).include? @comic.name
-	format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{name}\" Already Exists"} 
-	ok = false
-      end
+	if Comic.pluck(:name).include? name
+	    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{name}\" Already Exists"} 
+        end
 
-     #if error != ""
-     #  format.html { redirect_to '/comics/new', alert: "#{error}"}
-     #end
+	if error != ""
+              format.html { redirect_to '/comics/new', alert: "#{error}"}
+        end
 	   
-      begin 
-	@comic.save!
-        format.html { redirect_to @comic, notice: "Comic \"#{name}\" was successfully created." }
-        format.json { render :show, status: :created, location: @comic }
-     rescue
-	@error = nil          
-	format.html { render :new}
-        format.json { render json: @comic.errors, status: :unprocessable_entity }
-      end
+        if @comic.save
+          format.html { redirect_to @comic, notice: "Comic \"#{name}\" was successfully created." }
+          format.json { render :show, status: :created, location: @comic }
+        else
+          format.html { render :new }
+          format.json { render json: @comic.errors, status: :unprocessable_entity }
+        end
     end
-    return
   end
 
   # PATCH/PUT /comics/1
   # PATCH/PUT /comics/1.json
   def update
-    @comic.url = @comic.check_and_fix_url
-    if Comic.pluck(:name).include? @comic.name && Comic.where(:name => @comic.name).first.id != @comic.id
-	format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
-	ok = false
-    end
-		respond_to do |format|
-				begin
-		 			@comic.update_attributes!(comic_params)
+    error = validate(comic_params)
+    respond_to do |format|
+	if error != ""
+          format.html { redirect_to edit_comic_path(@comic), alert: "#{error}"}
+        end
+
+	if @comic.update(comic_params)
           format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully changed." }
           format.json { render :show, status: :ok, location: @comic }
-        rescue
-					
-          format.html { redirect_to :back,  alert: "Can't edit: One or more fields were invalid."}
+        else
+          format.html { render edit_comic_path(@comic) }
           format.json { render json: @comic.errors, status: :unprocessable_entity }
         end
     end
-		return
   end
 
-	#I left this in here just in case, but it shouldn't be called.  
+  helper_method :validate
+  def validate(validation)
+	result = ""
+	url = validation[:url]
+	if /http:\/\/..*[.]..*/.match url or /..*[.]..*/.match url
+	   #do nothing - I don't know how to make this return for not match so I put the if nothing else something
+	   #the logic should be: if notmatch(/http:\/\/..*[.]..*/) and notmatch(/..*[.]..*/)
+	   #that's pseudo code but you get the idea
+  	else 
+	 result = "Invalid URL. Example: http://www.example.com"
+        end 
+	
+	if validation[:name].empty? 
+          result = "Required: Comic Name"
+        end
+
+	return result
+  end
+
 
   # DELETE /comics/1
   # DELETE /comics/1.json
@@ -143,20 +157,6 @@ class ComicsController < ApplicationController
   def search
 		@comics = Comic.search(params[:search], sort_column, sort_direction)
   end
-
-	def admin
-		if !user_signed_in?
-			respond_to do |format|
-				format.html { redirect_to new_user_session_path, alert: "You need to log in to perform this action." }
-			end
-			return
-		elsif !User.is_admin?(current_user)
-			respond_to do |format|
-				format.html { redirect_to '/', alert: "You do not have permission to do this." }
-			end
-			return
-		end
-	end
 
   private
     # Use callbacks to share common setup or constraints between actions.
