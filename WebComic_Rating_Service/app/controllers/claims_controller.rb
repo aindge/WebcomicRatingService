@@ -1,5 +1,5 @@
 class ClaimsController < ApplicationController
-	before_action :set_claim, only: [:destroy]
+	before_action :set_claim, only: [:approve, :destroy]
 	
 	def index
 		if !User.is_admin?(current_user)
@@ -9,6 +9,21 @@ class ClaimsController < ApplicationController
 			return
 		end
 		@claims = Claim.order("created_at DESC")
+	end
+
+	def approve
+		if !User.is_admin?(current_user)
+			respond_to do |format|
+				format.html { redirect_to '/', alert: "You do not have permission to do this." }
+			end
+			return
+		end
+		cmc = Comic.find(@claim.comic_id)
+		cmc.update_attributes!(user_id: @claim.user_id)
+		@claim.destroy!
+		respond_to do |format|
+      format.html { redirect_to claims_path, notice: "The claim was successfully approved." }
+    end
 	end
 
 	def destroy

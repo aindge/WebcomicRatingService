@@ -10,13 +10,14 @@ class Comic < ActiveRecord::Base
 	def self.search(search_condition, column, direction)
 		user = User.where(['lower(username) LIKE lower(?)', "%#{search_condition}%"]).first
 		if user != nil
-			result = Comic.where(['lower(name) LIKE lower(?) OR lower(author) LIKE lower(?) OR lower(genre) LIKE lower(?) OR user_id LIKE ?', 
+			result = Comic.where(['lower(name) LIKE lower(?) OR lower(author) LIKE lower(?) OR lower(genre) LIKE lower(?) OR cast(user_id as text) LIKE ?', 
 														"%#{search_condition}%", "%#{search_condition}%", "%#{search_condition}%", 
-														"%{user.id}%"]).order(column + " " + direction)
+														"%#{user.id}%"]).order(column + " " + direction)
 		else
 			result = Comic.where(['lower(name) LIKE lower(?) OR lower(author) LIKE lower(?) OR lower(genre) LIKE lower(?)', 
 														"%#{search_condition}%", "%#{search_condition}%", "%#{search_condition}%"]).order(column + " " + direction)
 		end
+		return result
 	end
 
 	def check_and_fix_url
@@ -25,12 +26,10 @@ class Comic < ActiveRecord::Base
 
 	def format_author_links_string()
 		result = self.author == nil ? "" : self.author
-		if user_id != nil
+		if user_id != 0
 			result << ", " if result != ""
 			begin
-				result << "#{link_to "#{User.find(user_id).username}", show_user_path(User.find(user_id))}"
-			rescue
-				result << "#{User.find(user_id).username}"
+				result << "<a href=\"/comics/search?search=#{User.find(user_id).username}\">#{User.find(user_id).username}</a>"
 			end
 		end
 		return result

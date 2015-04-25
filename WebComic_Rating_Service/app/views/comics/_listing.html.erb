@@ -1,3 +1,4 @@
+<% if !@comics.empty? %>
 <p>		
 	Sort by:
 	<tr>
@@ -9,6 +10,7 @@
  		<th> | <%= sortable "Overall Rating", "rating_overall" %></th>
 	</tr>
 </p>
+<% end %>
 <table class="listingContainer">
   <% @comics.each do |comic| %>		
 	<thead>		    				
@@ -38,18 +40,18 @@
 							<% end %>
 						</div>
 					</td>
- 				<td width="20%"><%= comic.format_author_links_string %></td>
+ 				<td width="20%"><%= comic.format_author_links_string.html_safe %></td>
         <td width="20%"><%= comic.genre %></td>
-        <td width="10%"><% if comic.rating_art != 0 %>
+        <td width="10%"><% if comic.rating_art != nil %>
 					<%= comic.rating_art.round %>
 					<% else %>
 						N/A
 					<% end %>
 				</td>
-        <td width="10%"><% if comic.rating_story != 0 %> 
+        <td width="10%"><% if comic.rating_story != nil %> 
 					<%= comic.rating_story.round %>
 					<% else %> N/A <% end %></td>
-        <td width="10%"><% if comic.rating_overall != 0 %> 
+        <td width="10%"><% if comic.rating_overall != nil %> 
 					<%= comic.rating_overall.round %>
 					<% else %> N/A <% end %></td>
       </tr>

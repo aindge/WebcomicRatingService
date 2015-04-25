@@ -10,7 +10,7 @@ This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?",
 
 <p>
   <strong>Author:</strong>
-  <%= @comic.author %>
+  <%= @comic.format_author_links_string.html_safe %>
 </p>
 
 <p>

@@ -38,18 +38,18 @@
 							<% end %>
 						</div>
 					</td>
- 				<td width="20%"><%= comic.format_author_links_string %></td>
+ 				<td width="20%"><%= comic.format_author_links_string.html_safe %></td>
         <td width="20%"><%= comic.genre %></td>
-        <td width="10%"><% if comic.rating_art != -1 %>
+        <td width="10%"><% if comic.rating_art != nil %>
 					<%= comic.rating_art.round %>
 					<% else %>
 						N/A
 					<% end %>
 				</td>
-        <td width="10%"><% if comic.rating_story != -1 %> 
+        <td width="10%"><% if comic.rating_story != nil %> 
 					<%= comic.rating_story.round %>
 					<% else %> N/A <% end %></td>
-        <td width="10%"><% if comic.rating_overall != -1 %> 
+        <td width="10%"><% if comic.rating_overall != nil %> 
 					<%= comic.rating_overall.round %>
 					<% else %> N/A <% end %></td>
       </tr>

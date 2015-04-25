@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 	resources :claims, only: [:new, :create, :index, :delete] do
 		collection do
 			delete 'reject/:id' => 'claims#destroy', :as => :reject
+			post 'approve/:id' => 'claims#approve', :as => :approve
 		end
 	end
   root :to => redirect('/comics')

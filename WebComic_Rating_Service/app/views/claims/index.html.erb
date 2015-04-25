@@ -27,7 +27,7 @@ User | <%= link_to "Claims (#{Claim.count})", claims_path %>
  				<td width="10%"><%= claim.user_id %></td>
         <td width="30%"><%= Comic.find(claim.comic_id).name %></td>
         <td width="10%"><%= claim.comic_id %></td>
-        <td width="20%">Approve | <%= link_to "Reject", reject_claims_path(claim), :method => 'delete' %></td>
+        <td width="20%"><%= link_to "Approve", approve_claims_path(claim), :method => 'post' %> | <%= link_to "Reject", reject_claims_path(claim), :method => 'delete' %></td>
       </tr>
 			<tr>
 				<td class="tdSynopsis" width="10%">Information</td>
