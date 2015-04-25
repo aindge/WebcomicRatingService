@@ -23,25 +23,21 @@ describe ClaimsController do
     end
     it 'check if the user is an admin' do
 	expect(User).to receive("is_admin?").with(@someone).and_return(nil)
-	delete :destroy(@fakeEntry)
+	delete :destroy, {:id => @fakeEntry.id}
     end
     it 'destory the claim' do
-	expect(@fakeEntry).to receive("destroy!").and_return(nil)
-	delete :destroy, {:id => "1"}
+		shoop = Claim.create!(:comic_id => 413, :user_id => 413, :body => "a")
+	delete :destroy, {:id => shoop.id}
+	expect(shoop.frozen?).to eq(true)
     end
   end
   describe 'create should' do
     before :each do
-      @fakeEntry = double('TRASH')
-      @fakeEntry.stub(:name).and_return("Garbage")
-      @fakeEntry.stub(:id).and_return("420")
-      @fakeEntry.stub(:permit)
-      @fakeEntry.stub(:url).and_return("www.TRASH.com")
-      @fakeEntry.stub(:synopsis).and_return("Absolute filth")
+      @fakeEntry = Comic.create!(:name => "bleh", :url => "http://swom.de", :synopsis => "DDDD")
     end
     it 'create the claim' do
-      expect(Claim).to receive(:new).with(@fakeEntry)
-      post :create, {:claim => @fakeEntry}
+      expect(Claim).to receive(:create)
+      post :create, {:claim = Claim.new(:comic_id => @fakeEntry.id, :user_id => "413", :body => "RED")}
     end
   end
 end
