@@ -7,9 +7,9 @@ Background: comics have been added to database
 
   Given the following comics exist:
   | name                | author       | url                |
-  | Cheddar             | Nacho Comics | www.something.com  |
-  | YourFavoriteDies    | Bad Man      | www.something.com  |
-  | GenericComic        | Someone      | www.something.com  |
+  | Cheddar             | Nacho Comics | http://www.something.com  |
+  | YourFavoriteDies    | Bad Man      | http://www.something.com  |
+  | GenericComic        | Someone      | http://www.something.com  |
  #spaces removed because Cucumber is picky. The code works fine for spaces
 
   And the following users exist:

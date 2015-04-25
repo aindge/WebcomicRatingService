@@ -3,8 +3,13 @@ Feature: Add a comic to the list
     I want to be able to add my comic to the website
     So others can see it and review it
 
+Background: There is a user are you are logged in
+
+  Given a user "JadeHarley" exists
+  And I am logged in as "JadeHarley"
+
     Scenario: Add a new comic (happy path)
-		Given I am on the homepage
+	    Given I am on the homepage
  	    When I add a comic "Fake Comic"
  	    Then I should see "Fake Comic"
 

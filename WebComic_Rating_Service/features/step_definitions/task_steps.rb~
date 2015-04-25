@@ -4,7 +4,8 @@ Then(/^I add a comic "(.*?)"$/) do |comic|
     When I click "New Comic"
     Then I should be on the Create New Comics page.
     When I fill in "Name" with "#{comic}"
-    And I fill in "comic[url]" with "www.something.com"
+    And I fill in "comic[url]" with "www.comic.com"
+    And I fill in "Synopsis" with "Bluh"
     And I click "Create Comic"
     And I click "Back"
   }
@@ -16,12 +17,13 @@ Given(/^a user "(.*?)" exists$/) do |user|
 		And I click "Register"
 		Then I should be on the Create New Account page
 		When I fill in "Username" with "#{user}"
-		And I fill in "Password" with "TestPassword"
-		And I fill in "user[password_confirmation]" with "TestPassword"
+		And I fill in "Password" with "#{user}"
+		And I fill in "user[password_confirmation]" with "#{user}"
 		And I fill in "Email" with "something@somewhere.com"
 		And I click "Sign up"
 		Then I should be on the home page
 		Then I click "Log out"
+		Then I should see "you're not logged in"
 	}
 end
 
@@ -33,7 +35,7 @@ end
 
 Given /the following comics exist/ do |comic_table|
   comic_table.hashes.each do |comic|
-    newComic = comic.merge({:rating_art => "-1", :rating_story => "-1", :rating_overall => "-1", :rates => "-1"})
+    newComic = comic.merge({:synopsis => "bluh", :rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
     Comic.create!(newComic)
   end
 end
@@ -45,21 +47,13 @@ Given(/^I am logged in as "(.*?)"$/) do |user|
     Then I fill in "Username" with "#{user}"
     And I fill in "Password" with "#{user}"
     Then I click "Sign in"
+    Then I should see "#{user}"
   }
 end
 
 Given(/^there is a comic "(.*?)" made by "(.*?)"$/) do |comic, user|
-  steps %Q{
-		Given I am on the homepage
-		When I click "New Comic"
-		And I fill in "Name" with "#{comic}"
-		And I fill in "Author" with "#{user}"
-		And I fill in "comic[url]" with "www.test.com"
-		And I press "Create Comic"
-		And I click "Back"
-		Then I should be on the homepage
-		And I should see "#{comic}"
-	}
+    newComic = ({:name => "#{comic}", :name => "#{user}", :name => "http://www.#{comic}.com", :synopsis => "bluh", :rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
+    Comic.create!(newComic)
 end
 
 When (/^I rate "(.*?)"'s "(.*?)" field with "(.*?)"$/) do |comic, field, value|

@@ -58,7 +58,7 @@ Scenario: Search found nothing (sad path)
 
 Scenario: Mess with capitalization (sad path)
 	When I fill in "search" with "ChEeSy"
-	And I press "Search"
+	And I press "Go!"
 	Then I should see "Cheddar"
 	And I should see "American"
 	And I should not see "Cruddy Comic"

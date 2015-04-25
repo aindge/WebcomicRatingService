@@ -6,16 +6,16 @@ Feature: Search for comics
 Background: comics have been added to database
 
   Given the following comics exist:
-  | name                | author       | url                |genre   |
-  | Cheddar             | Nacho Comics | www.something.com  |cheesy  |
-  | Poo Comic           | Crap Writer  | www.something.com  |comedy  |
-  | Swiss               | Nacho Comics | www.something.com  |cheesy  |
-  | American            | Nacho Comics | www.something.com  |cheesy  |
-  | Cruddy Comic        | Crap Writer  | www.something.com  |comedy  |
-  | Original Comic      | The Original | www.something.com  |boring  |
-  | Your Favorite Dies  | Bad Man      | www.something.com  |mean    |
-  | Genric Comic        | Someone      | www.something.com  |boring  |
-  | Test                | Test         | www.something.com  |boring  |
+  | name                | author       | url       		   |genre   |
+  | Cheddar             | Nacho Comics | http://www.something.com  |cheesy  |
+  | Poo Comic           | Crap Writer  | http://www.something.com  |comedy  |
+  | Swiss               | Nacho Comics | http://www.something.com  |cheesy  |
+  | American            | Nacho Comics | http://www.something.com  |cheesy  |
+  | Cruddy Comic        | Crap Writer  | http://www.something.com  |comedy  |
+  | Original Comic      | The Original | http://www.something.com  |boring  |
+  | Your Favorite Dies  | Bad Man      | http://www.something.com  |mean    |
+  | Genric Comic        | Someone      | http://www.something.com  |boring  |
+  | Test                | Test         | http://www.something.com  |boring  |
 
   And I am on the home page
 

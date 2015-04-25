@@ -3,6 +3,11 @@ Feature: Add a comic to the list
     I want to be able to add my comic to the website
     So others can see it and review it
 
+Background: There is a user are you are logged in
+
+  Given a user "JadeHarley" exists
+  And I am logged in as "JadeHarley"
+
     Scenario: Add a new comic (happy path)
 		Given I am on the homepage
  	    When I add a comic "Fake Comic"
@@ -32,6 +37,14 @@ Feature: Add a comic to the list
 		When I click "New Comic"
  	    Then I should see "New comic" 
 	    When I fill in "comic[url]" with "http://www.something.com"
+ 	    And I click "Create Comic"
+ 	    Then I should see "Required: Comic Name"
+
+    Scenario: Try to add a nameless comic with a bad URL(sad path)
+		Given I am on the homepage 	    
+		When I click "New Comic"
+ 	    Then I should see "New comic" 
+	    When I fill in "comic[url]" with "Bad URL"
  	    And I click "Create Comic"
  	    Then I should see "Required: Comic Name"
 

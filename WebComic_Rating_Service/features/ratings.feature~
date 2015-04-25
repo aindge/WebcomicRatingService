@@ -33,7 +33,7 @@ Scenario: rate a comic again
 	Then I should be on the homepage
 	And I should see /YourFavoriteDies.*5/
 	Then I switch to user "RoseLalonde"
-	When I rate "Your Favorite Dies"'s "art" field with "3"
+	When I rate "YourFavoriteDies"'s "art" field with "3"
 	Then I should see /YourFavoriteDies.*4/
 	Then I switch to user "DaveStrider"
 	When I rate "YourFavoriteDies"'s "art" field with "1"
