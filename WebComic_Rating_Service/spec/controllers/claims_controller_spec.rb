@@ -3,12 +3,12 @@ require 'rails_helper'
 
 describe ClaimsController do
   before :each do
-    @someone = User.create({:username => "Snoop Dog", :password => "Smoke Weed Everyday", :email => "snoopdog@notreal.com", :admin => true})
-    @current_user = controller.stub(:current_user).and_return(@someone)
+    @someone = User.create!({:username => "Snoop Dog", :password => "Smoke Weed Everyday", :email => "snoopdog@notreal.com", :admin => true})
+		sign_in(@someone)
   end
    describe 'index should' do
     it 'check if the user is an admin' do
-	expect(User).to receive("is_admin?").with(@current_user)
+	expect(User).to receive("is_admin?")
 	get :index
     end
     it 'run when the index page is loaded' do
@@ -18,15 +18,16 @@ describe ClaimsController do
   end
   describe 'destory should' do
     before :each do
-	@fakeEntry = Claim.create(:comic_id => 413, :user_id => 413, :id => 413)
+	@fakeEntry = Claim.create!(:comic_id => 413, :user_id => 413, :body => "a")
+		sign_in(@someone)
     end
     it 'check if the user is an admin' do
-	expect(User).to receive("is_admin?").with(@current_user).and_return(nil)
-	delete :destroy, {:id => "420"}
+	expect(User).to receive("is_admin?").with(@someone).and_return(nil)
+	delete :destroy, {:id => "1"}
     end
     it 'destory the claim' do
-	expect(Claim).to receive("destroy!").with("420").and_return(nil)
-	delete :destroy, {:id => "420"}
+	expect(@fakeEntry).to receive("destroy!").and_return(nil)
+	delete :destroy, {:id => "1"}
     end
   end
   describe 'create should' do

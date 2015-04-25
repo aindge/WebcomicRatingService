@@ -1,5 +1,5 @@
 class ClaimsController < ApplicationController
-	before_action :set_claim, only: [:destroy]
+	before_action :set_claim, only: [:approve, :destroy]
 	
 	def index
 		if !User.is_admin?(current_user)
