@@ -109,23 +109,33 @@ class ComicsController < ApplicationController
   # PATCH/PUT /comics/1
   # PATCH/PUT /comics/1.json
   def update
-    @comic.url = @comic.check_and_fix_url
-    if Comic.pluck(:name).include? @comic.name && Comic.where(:name => @comic.name).first.id != @comic.id
-	format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
-	ok = false
+    if comicExists? @comic
+      updateExistingComic()
+    else
+      updateNonExistingComic()
     end
-		respond_to do |format|
-				begin
-		 			@comic.update_attributes!(comic_params)
+  end
+
+  def updateExistingComic
+    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"}
+  end
+  def updateNonExistingComic
+    respond_to do |format|
+        begin
+          @comic.update_attributes!(comic_params)
           format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully changed." }
           format.json { render :show, status: :ok, location: @comic }
         rescue
-					
           format.html { redirect_to :back,  alert: "Can't edit: One or more fields were invalid."}
           format.json { render json: @comic.errors, status: :unprocessable_entity }
         end
     end
-		return
+    
+  end
+
+  def comicExists?(comic)
+    @comic.url = @comic.check_and_fix_url
+    Comic.pluck(:name).include? comic.name && Comic.where(:name => comic.name).first.id != comic.id
   end
 
 	#I left this in here just in case, but it shouldn't be called.  
