@@ -51,11 +51,15 @@ describe ComicsController do
       it 'call the rating method' do
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
         @fakeEntry.stub("update".to_sym).and_return(0)
+				allow(@fakeEntry).to receive("rates=".to_sym)
+				allow(@fakeEntry).to receive("update_attributes!".to_sym)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
 
       it 'get correct results' do
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
+				allow(@fakeEntry).to receive("rates=".to_sym)
+				allow(@fakeEntry).to receive("update_attributes!".to_sym)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
@@ -70,6 +74,8 @@ describe ComicsController do
 	@result = {:rates => 1, :rating_art => 4, :rating_story=> 1, :rating_overall => 3}
       end
       it 'get correct results' do
+				allow(@fakeEntry).to receive("rates=".to_sym)
+				allow(@fakeEntry).to receive("update_attributes!".to_sym)
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}

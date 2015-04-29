@@ -30,7 +30,7 @@ describe User do
 			expect(someUser.check_has_rated?(someComic)).to eq(false)
 			someUser.record_rating(someComic)
 			expect(someUser.check_has_rated?(someComic)).to eq(true)
-			expect(someUser.has_rated).to eq({77=>[1.0, 2.0, 3.0]})
+			expect(someUser.has_rated).to eq({someComic.id=>[1.0, 2.0, 3.0]})
 		end
 	end
 end

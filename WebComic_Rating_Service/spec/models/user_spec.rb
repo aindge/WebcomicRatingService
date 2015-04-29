@@ -28,7 +28,7 @@ describe User do
 			someUser = User.create!({:username => "generic_user", :password => "something", :email => "something@somewhere.com", :admin => false, :has_rated => {}})
 			someComic = Comic.create!({:name => "best comic", :author => "best artist", :rating_art => 1, :rating_story => 2, :rating_overall => 3, :url => "http://www.example.com", :synopsis => "Shush you."})
 			expect(someUser.check_has_rated?(someComic)).to eq(false)
-			someUser.record_rating(someComic)
+			someUser.record_rating(someComic, 1, 2, 3)
 			expect(someUser.check_has_rated?(someComic)).to eq(true)
 			expect(someUser.has_rated).to eq({someComic.id=>[1.0, 2.0, 3.0]})
 		end

@@ -51,11 +51,13 @@ describe ComicsController do
       it 'call the rating method' do
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
         @fakeEntry.stub("update".to_sym).and_return(0)
+				allow(@fakeEntry).to receive(:rates=)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
 
       it 'get correct results' do
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
+				allow(@fakeEntry).to receive("rates=".to_sym)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
@@ -63,13 +65,14 @@ describe ComicsController do
 
     context 'given no previous rating,' do
       before :each do  
-        @fakeEntry.stub("rating_art".to_sym).and_return("0")
-        @fakeEntry.stub("rating_story".to_sym).and_return("0")
-        @fakeEntry.stub("rating_overall".to_sym).and_return("0")
-        @fakeEntry.stub("rates".to_sym).and_return("0")
+        @fakeEntry.stub("rating_art".to_sym).and_return(0)
+        @fakeEntry.stub("rating_story".to_sym).and_return(0)
+        @fakeEntry.stub("rating_overall".to_sym).and_return(0)
+        @fakeEntry.stub("rates".to_sym).and_return(0)
 	@result = {:rates => 1, :rating_art => 4, :rating_story=> 1, :rating_overall => 3}
       end
       it 'get correct results' do
+				allow(@fakeEntry).to receive(:rates=)
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}

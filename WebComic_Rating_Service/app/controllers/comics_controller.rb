@@ -41,36 +41,38 @@ class ComicsController < ApplicationController
 
     #prevent users from rating again
     if current_user.check_has_rated?(@comic)	
-	respond_to do |format|
+			respond_to do |format|
 	    format.html { redirect_to '/', alert: "Error: You've already rated #{@comic.name}."}
-	end
+			end
+			return
     end	
-
-    updateComicRating(@comic)
-    current_user.record_rating(@comic)			
+		
+    updateComicRating()
+		
+    current_user.record_rating(@comic, params[:ratings]["rating_art"], params[:ratings]["rating_story"], params[:ratings]["rating_overall"])			
     respond_to do |format|    
-	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
+			format.html { redirect_to '/', notice: "#{@comic.name} rated"}
     end
   end
 
-  def updateComicRating(comic)
-    rates = comic.rates + 1
-    comic.update(:rates => rates, :rating_art => artRating(comic), :rating_story => storyRating(comic), :rating_overall => overallRating(comic))
+  def updateComicRating()
+    @comic.rates = @comic.rates == nil ? 1 : @comic.rates + 1
+    @comic.update_attributes!(:rates => @comic.rates, :rating_art => artRating(@comic), :rating_story => storyRating(@comic), :rating_overall => overallRating(@comic))
   end
 
   def artRating(comic)
     ratingsHash = params[:ratings]
-    (comic.rating_art * comic.rates + ratingsHash[:rating_art].to_i) / (comic.rates + 1)
+    comic.rating_art == nil ? params[:ratings]["rating_art"] : (comic.rating_art * comic.rates + ratingsHash[:rating_art].to_i) / (comic.rates + 1)
   end
   
   def storyRating(comic)
     ratingsHash = params[:ratings]
-    (comic.rating_story * comic.rates + ratingsHash[:rating_story].to_i) / (comic.rates + 1)
+    comic.rating_story == nil ? params[:ratings]["rating_story"] :(comic.rating_story * comic.rates + ratingsHash[:rating_story].to_i) / (comic.rates + 1)
   end
 
   def overallRating(comic)
     ratingsHash = params[:ratings]
-    (comic.rating_overall * comic.rates + ratingsHash[:rating_overall].to_i) / (comic.rates + 1)
+    comic.rating_overall == nil ? params[:ratings]["rating_overall"] :(comic.rating_overall * comic.rates + ratingsHash[:rating_overall].to_i) / (comic.rates + 1)
   end
 
   # GET /comics/new
