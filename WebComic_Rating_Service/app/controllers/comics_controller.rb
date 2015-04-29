@@ -46,24 +46,31 @@ class ComicsController < ApplicationController
 	end
     end	
 
-    ratingsHash = params[:ratings]
-    rates = @comic.rates + 1
-
-    #recalculate the new ratings using the new values
-    art = getRateAverage(@comic.rating_art, ratingsHash[:rating_art].to_i, rates)
-    story = getRateAverage(@comic.rating_story, ratingsHash[:rating_story].to_i, rates)
-    overall = getRateAverage(@comic.rating_overall, ratingsHash[:rating_overall].to_i, rates)
-	
-    @comic.update(:rates => rates, :rating_art => art, :rating_story => story, :rating_overall => overall)
+    updateComicRating(@comic)
     current_user.record_rating(@comic)			
     respond_to do |format|    
 	format.html { redirect_to '/', notice: "#{@comic.name} rated"}
     end
   end
 
-  helper_method :getNewAverage
-  def getRateAverage(oldRating, newRating, rates)
-    return ((oldRating * (rates - 1)) + newRating) / rates
+  def updateComicRating(comic)
+    rates = comic.rates + 1
+    comic.update(:rates => rates, :rating_art => artRating(comic), :rating_story => storyRating(comic), :rating_overall => overallRating(comic))
+  end
+
+  def artRating(comic)
+    ratingsHash = params[:ratings]
+    (comic.rating_art * comic.rates + ratingsHash[:rating_art].to_i) / (comic.rates + 1)
+  end
+  
+  def storyRating(comic)
+    ratingsHash = params[:ratings]
+    (comic.rating_story * comic.rates + ratingsHash[:rating_story].to_i) / (comic.rates + 1)
+  end
+
+  def overallRating(comic)
+    ratingsHash = params[:ratings]
+    (comic.rating_overall * comic.rates + ratingsHash[:rating_overall].to_i) / (comic.rates + 1)
   end
 
   # GET /comics/new
