@@ -34,10 +34,17 @@ class User < ActiveRecord::Base
 	end
 
 	def record_rating(comic)
+		@array = [comic.rating_art, comic.rating_story, comic.rating_overall]
 		if self.has_rated[comic.id].nil?
-			update_attributes!(:has_rated => {comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]})
+			update_attributes!(:has_rated => {comic.id => @array})
 		else
-			update_attributes!(:has_rated => self.has_rated.merge({comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]}))
+			update_attributes!(:has_rated => self.has_rated.merge({comic.id => @array}))
 		end
 	end
+	#def getValue
+		#if self.has_rated[comic.id].nil?
+			#{comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]}
+		#else
+			#self.has_rated.merge({comic.id => [comic.rating_art, comic.rating_story, comic.rating_overall]}
+	#end
 end

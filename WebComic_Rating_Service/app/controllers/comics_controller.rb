@@ -85,57 +85,72 @@ class ComicsController < ApplicationController
   # POST /comics
   # POST /comics.json
   def create
-    ok = true    
+    #ok = true    
+    
     @comic = Comic.new(comic_params)
-    @comic.url = @comic.check_and_fix_url
-    respond_to do |format|
-      if Comic.pluck(:name).include? @comic.name
-				format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
-				ok = false
+    #@comic.url = @comic.check_and_fix_url
+    #
+      #if Comic.pluck(:name).include? @comic.name
+      
+      if comicExists?#(@comic)
+        CU_ExistingComic(@comic)
+				#format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"} 
+				#ok = false
+      else
+        createNonExistingComic(@comic)
       end
-      begin 
-				@comic.save!
-        format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully created." }
-        format.json { render :show, status: :created, location: @comic }
-     rescue
-	@error = nil          
-	format.html { render :new}
-        format.json { render json: @comic.errors, status: :unprocessable_entity }
-      end
-    end
-    return
+    #end
+    #return
   end
 
   # PATCH/PUT /comics/1
   # PATCH/PUT /comics/1.json
   def update
-    if comicExists? @comic
-      updateExistingComic()
+    #@comic.url = @comic.check_and_fix_url
+    if comicExists? #@comic
+      CU_ExistingComic(@comic)
     else
-      updateNonExistingComic()
+      updateNonExistingComic(@comic)
     end
   end
 
-  def updateExistingComic
-    format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{@comic.name}\" Already Exists"}
+  def CU_ExistingComic(comic)
+    respond_to do |format|
+      format.html { redirect_to '/comics/new', alert: "Error: Comic \"#{comic.name}\" Already Exists"}
+    end
   end
-  def updateNonExistingComic
+
+  def createNonExistingComic(comic)
+    respond_to do |format|
+      begin 
+        @comic.save!
+        format.html { redirect_to comic, notice: "Comic \"#{comic.name}\" was successfully created." }
+        format.json { render :show, status: :created, location: comic }
+      rescue         
+        format.html { render :new}
+        format.json { render json: comic.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def updateNonExistingComic(comic)
     respond_to do |format|
         begin
-          @comic.update_attributes!(comic_params)
-          format.html { redirect_to @comic, notice: "Comic \"#{@comic.name}\" was successfully changed." }
-          format.json { render :show, status: :ok, location: @comic }
+          comic.update_attributes!(comic_params)
+          format.html { redirect_to @comic, notice: "Comic \"#{comic.name}\" was successfully changed." }
+          format.json { render :show, status: :ok, location: comic }
         rescue
           format.html { redirect_to :back,  alert: "Can't edit: One or more fields were invalid."}
-          format.json { render json: @comic.errors, status: :unprocessable_entity }
+          format.json { render json: comic.errors, status: :unprocessable_entity }
         end
     end
     
   end
 
-  def comicExists?(comic)
-    @comic.url = @comic.check_and_fix_url
-    Comic.pluck(:name).include? comic.name && Comic.where(:name => comic.name).first.id != comic.id
+  def comicExists?()
+      @comic.url = @comic.check_and_fix_url
+      # hope ruby has short circuit logic
+      (Comic.pluck(:name).include? @comic.name) && (params[:action] == "create" || Comic.where(:name => @comic.name).first.id != @comic.id)
   end
 
 	#I left this in here just in case, but it shouldn't be called.  
