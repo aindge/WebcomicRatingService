@@ -58,8 +58,8 @@ describe ComicsController do
 
       it 'get correct results' do
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
-				allow(@fakeEntry).to receive("rates=".to_sym)
-				allow(@fakeEntry).to receive("update_attributes!".to_sym)
+	allow(@fakeEntry).to receive("rates=".to_sym)
+	allow(@fakeEntry).to receive("update_attributes!".to_sym)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
@@ -74,12 +74,34 @@ describe ComicsController do
 	@result = {:rates => 1, :rating_art => 4, :rating_story=> 1, :rating_overall => 3}
       end
       it 'get correct results' do
-				allow(@fakeEntry).to receive("rates=".to_sym)
-				allow(@fakeEntry).to receive("update_attributes!".to_sym)
+	allow(@fakeEntry).to receive("rates=".to_sym)
+	allow(@fakeEntry).to receive("update_attributes!".to_sym)
         expect(Comic).to receive(:find).with("420").and_return(@fakeEntry)
         @fakeEntry.stub("update".to_sym).with(@result).and_return(0)
         put :reviseRate, {:id => "420", :ratings => @ratings, :controller => "comics"}
       end
+    end
+  end
+  describe 'new should' do
+    it 'make a new claim' do
+	expect(Comic).to receive("new")
+	get :new, {}
+    end
+  end
+describe 'create should,' do
+    before :each do  
+      @fakeEntry = double('fakeComic')
+      @fakeEntry.stub(:name).and_return("Legit")
+      @fakeEntry.stub(:id).and_return("420")
+      @fakeEntry.stub(:url=).and_return("http://www.butts.com")
+      @fakeEntry.stub(:check_and_fix_url).and_return(nil)
+      @ratings = {:rating_art => "4", :rating_story => "1", :rating_overall => "3"}
+      @someone = User.create({:username => "generic_user", :password => "something", :email => "something@somewhere.com", :admin => false, :has_rated => {}})
+      @current_user = controller.stub(:current_user).and_return(@someone)
+    end
+    it 'check if the name is already used' do
+      expect(Comic).to receive(:pluck).with(:name).and_return("AEIOU")
+      post :create, {:comic => {:user => "User", :name => "Name"}}
     end
   end
 end

@@ -17,7 +17,7 @@
  require 'simplecov'
  SimpleCov.start 'rails'
  SimpleCov.coverage_dir 'coverage/rspec'
- require './controller_helpers'
+ require 'controller_helpers'
 
 
 RSpec.configure do |config|
@@ -45,6 +45,8 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+config.global_fixtures = :all
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

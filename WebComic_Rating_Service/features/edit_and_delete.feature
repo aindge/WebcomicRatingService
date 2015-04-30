@@ -7,9 +7,9 @@ Feature: Allow logged in users to edit and delete their comics
 Background: users have been added to the db
 
   Given the following users exist:
-	| username	| password 			|  email		|
-	| TestUser	| TestUser  		| testeamail@gmail.com  |
-	| Sysadmin	| Sysadmin			| testadmin@gmail.com | 
+	| username	| password 	|  email		| admin |
+	| TestUser	| TestUser  	| testeamail@gmail.com  | false |
+	| Sysadmin	| Sysadmin	| testadmin@gmail.com   | true  | 
 
 	Scenario: Delete a comic that you have permission to delete(happy path)
 		Given I am on the homepage
@@ -48,3 +48,21 @@ Background: users have been added to the db
  		And I am logged in as "TestUser"
 		And there is a comic "NachoComic" made by "BadPuns"
 		Then I should not see "Edit_NachoComic"
+
+	Scenario: Delete a comic as and admin(happy path)
+		Given I am on the homepage
+ 		And I am logged in as "Sysadmin"
+		And there is a comic "TestComic" made by "TestUser"
+		When I click "Delete" for comic "TestComic"
+		And I should see "was successfully deleted."
+
+	Scenario: Edit a comic as an admin(happy path)
+		Given I am on the homepage
+ 		And I am logged in as "Sysadmin"
+		And there is a comic "TestComic" made by "TestUser"
+		When I click "Edit" for comic "TestComic"
+		Then I should see "Editing Comic"
+		When I fill in "Name" with "TestComic Revised!"
+		And I click "Update Comic"
+		Then I should see "was successfully changed"
+
