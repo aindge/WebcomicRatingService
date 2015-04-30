@@ -4,7 +4,7 @@
   <h1><%= @comic.name %></h1>
 </p>
 
-<% if @comic.user_id == nil %>
+<% if @comic.user_id == nil || @comic.user_id == 0 %>
 This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?", "/claims/new?comic_id=#{@comic.id}" %>
 <% end %>
 

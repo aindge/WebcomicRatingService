@@ -52,4 +52,4 @@ Scenario: rate a comic so the averate is a decimal
 	Then I switch to user "DaveStrider"
 	When I rate "GenericComic"'s "story" field with "1"
 	And I click "Show" for comic "GenericComic"
-	Then I should see "Rating Story: 2.6"
+	Then I should see "Rating Story: 3.25"

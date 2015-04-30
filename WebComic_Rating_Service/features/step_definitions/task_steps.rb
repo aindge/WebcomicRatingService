@@ -76,3 +76,15 @@ Then (/^I switch to user "(.*?)"$/) do |user|
     And I am logged in as "#{user}"
   }
 end
+
+Given(/^I make a claim for "(.*?)"$/) do |arg1|
+  steps %Q{
+		Given I am on the homepage
+    And I click "Show" for comic "#{arg1}"
+		And I click "Is #{arg1} yours?"
+		Then I fill in "claim[body]" with "Bluh"
+		Then I click "Create Claim"
+		Then I should see "Your claim has been successfully filed and is awaiting moderator approval."
+  }
+end
+

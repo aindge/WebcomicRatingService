@@ -33,7 +33,6 @@ class ClaimsController < ApplicationController
 			end
 			return
 		end
-		debugger
 		@claim.destroy!
 		respond_to do |format|
       format.html { redirect_to claims_path, notice: "The claim was successfully rejected." }
@@ -46,6 +45,12 @@ class ClaimsController < ApplicationController
 
 	def create
 		@claim = Claim.new(claim_params)
+		if Claim.exists?(user_id: @claim.user_id, comic_id: @claim.comic_id)
+			respond_to do |format|
+				format.html { redirect_to "/claims/new?comic_id=#{@claim.comic_id}", alert: "You have already submitted a claim for this comic. Be patient!" }
+			end
+			return
+		end
 		begin
 			@claim.save!
 		rescue

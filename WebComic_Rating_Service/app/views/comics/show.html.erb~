@@ -4,6 +4,8 @@
   <h1><%= @comic.name %></h1>
 </p>
 
+<%= @comic.user_id %>
+
 <% if @comic.user_id == nil %>
 This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?", "/claims/new?comic_id=#{@comic.id}" %>
 <% end %>
@@ -32,9 +34,9 @@ This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?",
 	<% if @comic.rating_art != nil %>
   <strong>Rating Art:</strong>
 	<%= @comic.rating_art %>
-	<% if user_signed_in? && current_user.check_has_rated?(@comic) != nil %>
+	<% if user_signed_in? && current_user.get_has_rated(@comic) != nil %>
 	<strong>You Rated:</strong>
-	<%= current_user.check_has_rated?(@comic)[0] %>
+	<%= current_user.get_has_rated(@comic)[0] %>
 	<% end %>
 	<% else %>
 	This comic's art hasn't been rated.
@@ -45,9 +47,9 @@ This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?",
 	<% if @comic.rating_art != nil %>
   <strong>Rating Story:</strong>
   <%= @comic.rating_story %>
-	<% if user_signed_in? && current_user.check_has_rated?(@comic) != nil %>
+	<% if user_signed_in? && current_user.get_has_rated(@comic) != nil %>
 	<strong>You Rated:</strong>
-	<%= current_user.check_has_rated?(@comic)[1] %>
+	<%= current_user.get_has_rated(@comic)[1] %>
 	<% end %>
 	<% else %>
 	This comic's story hasn't been rated.
@@ -58,9 +60,9 @@ This comic isn't associated with a user. <%= link_to "Is #{@comic.name} yours?",
 	<% if @comic.rating_art != nil %>
   <strong>Rating Overall:</strong>
   <%= @comic.rating_overall %>
-	<% if user_signed_in? && current_user.check_has_rated?(@comic) != nil %>
+	<% if user_signed_in? && current_user.get_has_rated(@comic) != nil %>
 	<strong>You Rated:</strong>
-	<%= current_user.check_has_rated(@comic)[2] %>
+	<%= current_user.get_has_rated(@comic)[2] %>
 	<% end %>
 	<% else %>
 	This comic overall hasn't been rated.

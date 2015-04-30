@@ -1,0 +1,71 @@
+Feature: Allow a user to make claims
+	As a user
+	I want to claim a comic
+	So no one can mess up my stuff
+
+Background: Things exist
+	Given the following comics exist:
+  | name                | author       | url                			 |
+  | Cheddar             | Nacho Comics | http://www.something.com  |
+  | YourFavoriteDies    | Bad Man      | http://www.something.com  |
+  | GenericComic        | Someone      | http://www.something.com  |
+ #spaces removed because Cucumber is picky. The code works fine for spaces
+
+  And the following users exist:
+  | username		| password			|  email											| admin |
+  | JohnEgbert 	| JohnEgbert  	| ectoBiologist@bluh.com    	| false |
+  | RoseLalonde	| RoseLalonde  	| tentacleTherapist@bluh.com  | true  |
+  | DaveStrider	| DaveStrider		| turntechGod@bluh.com    		| false |
+
+Scenario: Make a claim :)
+	Given I am on the homepage
+	And I am logged in as "JohnEgbert"
+	And I click "Show" for comic "Cheddar"
+	And I click "Is Cheddar yours?"
+	Then I fill in "claim[body]" with "Bluh"
+	Then I click "Create Claim"
+	Then I should see "Your claim has been successfully filed and is awaiting moderator approval."
+
+Scenario: Make a claim, but omit the body :(
+	Given I am on the homepage
+	And I am logged in as "JohnEgbert"
+	And I click "Show" for comic "Cheddar"
+	And I click "Is Cheddar yours?"
+	Then I click "Create Claim"
+	Then I should see "The Information field can't be blank."
+
+Scenario: Make a claim for a comic you have already filed a claim for :(
+	Given I am on the homepage
+	And I am logged in as "JohnEgbert"
+	And I make a claim for "Cheddar"
+	Then I go to the homepage
+	And I click "Show" for comic "Cheddar"
+	And I click "Is Cheddar yours?"
+	Then I fill in "claim[body]" with "Bluh"
+	Then I click "Create Claim"
+	Then I should see "Be patient!"
+
+Scenario: Approve a claim :)
+	Given I am on the homepage
+	And I am logged in as "JohnEgbert"
+	And I make a claim for "Cheddar"
+	Then I switch to user "RoseLalonde"
+	Then I go to the homepage
+	And I click "Admin"
+	Then I click "Claims (1)"
+	Then I click "Approve"
+	Then I go to the homepage
+	And I should see "Nacho Comics, JohnEgbert"
+
+Scenario: Reject a claim :)
+	Given I am on the homepage
+	And I am logged in as "JohnEgbert"
+	And I make a claim for "Cheddar"
+	Then I switch to user "RoseLalonde"
+	Then I go to the homepage
+	And I click "Admin"
+	Then I click "Claims (1)"
+	Then I click "Reject"
+	Then I should see "caught up"
+	Then I go to the homepage
+	And I should not see "JohnEgbert"

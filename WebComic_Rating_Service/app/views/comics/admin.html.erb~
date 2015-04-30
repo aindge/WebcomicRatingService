@@ -1,2 +1,2 @@
 <h1>Admin Control Panel</h1>
-Users | Claims
+Users | <%= link_to "Claims #{Claim.count}", claims_path %>
