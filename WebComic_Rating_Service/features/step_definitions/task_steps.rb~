@@ -36,7 +36,7 @@ end
 
 Given /the following comics exist/ do |comic_table|
   comic_table.hashes.each do |comic|
-    newComic = comic.merge({:synopsis => "bluh", :rating_art => "0", :rating_story => "0", :rating_overall => "0", :rates => "0"})
+    newComic = comic.merge({:synopsis => "bluh", :rating_art => nil, :rating_story => nil, :rating_overall => "0", :rates => nil})
     Comic.create!(newComic)
   end
 end

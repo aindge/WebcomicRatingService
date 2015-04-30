@@ -37,7 +37,7 @@ Scenario: rate a comic again
 	Then I should see /YourFavoriteDies.*4/
 	Then I switch to user "DaveStrider"
 	When I rate "YourFavoriteDies"'s "art" field with "1"
-	Then I should see /YourFavoriteDies.*3/
+	Then I should see /YourFavoriteDies.*4/
 
 Scenario: rate a comic so the averate is a decimal
 	When I rate "GenericComic"'s "story" field with "5"
@@ -47,9 +47,9 @@ Scenario: rate a comic so the averate is a decimal
 	Then I switch to user "RoseLalonde"
 	When I rate "GenericComic"'s "story" field with "2"
 	And I click "Show" for comic "GenericComic"
-	Then I should see "Rating Story: 3.5"
+	Then I should see "Rating Story: 4.0"
 	And I click "Back"
 	Then I switch to user "DaveStrider"
 	When I rate "GenericComic"'s "story" field with "1"
 	And I click "Show" for comic "GenericComic"
-	Then I should see "Rating Story: 2.6"
+	Then I should see "Rating Story: 3.25"
