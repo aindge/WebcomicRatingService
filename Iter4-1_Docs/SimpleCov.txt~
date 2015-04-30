@@ -1,10 +1,11 @@
 Iteration 4-1 Document 2
 
 Initial SimpleCov Report:
-	57.33% total
-	100% in all except comics_controller.rb
+	Cucumber: 78/82 LOC 95.12%
+	RSpec: 45/82 LOC 54.88%
 
-Initial SimpleCov Report:
-	??.??% total
+Final SimpleCov Report:
+	Cucumber: 78/82 LOC 88.72%
+	RSpec: 45/82 LOC 57.14%
 
-Commentary
+For SimpleCov, we improved in rspec tests but did worse in cucumber tests. This is because we added more detail on a lower level, wrote more rspec tests, and refactored, meaning that rspec tests improved. However, since there was not a good way to test the code on an integration level, our cucumber score decreased

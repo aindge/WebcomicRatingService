@@ -37,8 +37,8 @@ class User < ActiveRecord::Base
 	    return self.has_rated[comic.id]
 	end
 
-	def record_rating(comic, art, story, overall)
-		@array = [art, story, overall]
+	def record_rating(comic, ratings)
+		@array = ratings.values
 		if self.has_rated[comic.id].nil?
 			update_attributes!(:has_rated => {comic.id => @array})
 		else

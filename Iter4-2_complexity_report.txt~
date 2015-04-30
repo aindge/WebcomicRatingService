@@ -1,0 +1,39 @@
+Iteration 3-2 Report
+
+SimpleCov Report:
+	91% total
+	100% in all except comics_controller.rb
+
+Reek Report:
+	71 total warnings, 48 in comics_controller.rbz
+
+Flog Report: 
+   951.6: flog total
+   Biggest Offender:
+   82.0: ComicsController#update          ./app/controllers/comics_controller.rb:101
+
+Rake Stats Report:
+  Code LOC: 159     Test LOC: 295     Code to Test Ratio: 1:1.9
+
+Iteration 4-2 Report
+
+SimpleCov Report:
+	91.37% total for cucumber
+	100% in all except claims_controller
+
+Reek Report:
+	115 total warnings, 47 in comics_controller.rbz
+
+Flog Report: 
+   1537.1: flog total
+   Biggest Offender:
+   23.8: ClaimsController#create          ./app/controllers/claims_controller.rb:46
+
+Rake Stats Report:
+  Code LOC: 295     Test LOC: 448     Code to Test Ratio: 1:1.5
+
+Overall, our scores decreased in all catagories. The primary reason it did so was due to our attempt to please flog, and various migrations and testing codes. 
+SimpleCov and Rake Stats are measures of code coverage and quantity. When we decrease flog's scores, we expanding our code out into multiple methods, it increased the lines of code without increasing the tested code. As a result, our SimpleCov and Rake stats decreased, even though we followed TDD and added sufficient tests. Additionally, our use of javascript made reducing rake stats hard since rspec is a major player in rake stats, and rspec does not work with javascript. We also included impossible to reach failsafes that could not be tested too. 
+Reek measures code smells, and tries to sniff out problems in the codeOur reek score went down mostely because we stopped caring about it. We tried to appease it, but it called our use of javascript repetitve even when it was calling two seperate messages and locations. Additionally, it called our names weak even when we changed them to make it stronger, and raised many errors on our migrations and tests. As a result, we called its names weak and decided to ignore it. 
+Flog measures how many assignments, branches, and conditions a method has. Flog is our big success story. While our overall score went up, all of our method scores went down, with ComicsController#update going from a whopping 82 to below 20. The reason the overall score went up was due to testing protocols and database migrations.
+

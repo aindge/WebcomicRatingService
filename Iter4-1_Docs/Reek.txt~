@@ -2,3 +2,8 @@ Iteration 4-1 Document 3
 
 Initial Reek Report:
 	59 total warnings, 37 in comics_controller.rb
+
+Final Reek Report:
+	101 total warnings, 29 in comics_controller.rb
+
+We did worse in reek this iteration. This is due to the fact that we tried to imporve our flog score. Since we did this by abstracting code to new methods and classes, reek's score decreased due to feature jealousy and naming issues
