@@ -6,17 +6,20 @@ Feature: Allow a user to rate comics
 Background: comics have been added to database
 
   Given the following comics exist:
-  | name                | author       | url                |
+  | name                | author       | url          	           |
   | Cheddar             | Nacho Comics | http://www.something.com  |
   | YourFavoriteDies    | Bad Man      | http://www.something.com  |
   | GenericComic        | Someone      | http://www.something.com  |
+  | Blue                | Nacho Comics | http://www.something.com  |
+  | American            | Nacho Comics | http://www.something.com  |
  #spaces removed because Cucumber is picky. The code works fine for spaces
 
   And the following users exist:
-  | username	| password	|  email			|
-  | JohnEgbert 	| JohnEgbert  	| ectoBiologist@bluh.com    	|
-  | RoseLalonde	| RoseLalonde  	| tentacleTherapist@bluh.com   	| 
-  | DaveStrider	| DaveStrider	| turntechGod@bluh.com    	|
+  | username	| password	|  email			| admin |
+  | JohnEgbert 	| JohnEgbert  	| ectoBiologist@skaia.net    	| false |
+  | RoseLalonde	| RoseLalonde  	| tentacleTherapist@skaia.net  	| false |
+  | DaveStrider	| DaveStrider	| turntechGod@skaia.net    	| false |
+  | JadeHarley	| JadeHarley	| gardenGnostic@skaia.net    	| true  |
 
   And I am on the home page
   And I am logged in as "JohnEgbert"
@@ -53,3 +56,34 @@ Scenario: rate a comic so the averate is a decimal
 	When I rate "GenericComic"'s "story" field with "1"
 	And I click "Show" for comic "GenericComic"
 	Then I should see "Rating Story: 3.25"
+
+Scenario: try to rate a comic as admin (sad part)
+	Then I switch to user "JadeHarley"
+	Then I should not see "Rate"
+
+Scenario: see your own rating
+	When I click "Rate" for comic "Cheddar"
+	When I rate "Cheddar"'s "comic overall" field with "5"
+	Then I should be on the homepage
+	When I click "Show" for comic "Cheddar"
+	Then I should see "You Rated: 5"
+
+Scenario: see your own rating when it is different than the average
+	When I rate "Blue"'s "story" field with "1"
+	Then I should be on the homepage
+	Then I switch to user "RoseLalonde"
+	When I rate "Blue"'s "story" field with "4"
+	When I click "Show" for comic "Blue"
+	Then I should see "Rating Story: 2.0"
+	Then I should see "You Rated: 4.0"
+
+Scenario: rate a comic initially
+	When I rate "American"'s "comic overall" field with "1"
+	Then I should be on the homepage
+	When I rate "American"'s "comic overall" field with "1"
+	Then I should be on the homepage
+	Then I should see "Error: You've already rated American"
+
+
+
+	
