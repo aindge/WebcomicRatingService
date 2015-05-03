@@ -6,7 +6,10 @@ class ComicsController < ApplicationController
   # GET /comics.json
   def index
     #debugger
-    @comics = Comic.order(sort_column + " " + sort_direction)
+    notNull = Comic.where("#{sort_column} IS NOT NULL").order(sort_column + " " + sort_direction)
+    nulled = Comic.where("#{sort_column} IS NULL").order(sort_column + " " + sort_direction)
+    @comics = notNull + nulled
+	print @comics
     #@comics = Comic.all
   end
 

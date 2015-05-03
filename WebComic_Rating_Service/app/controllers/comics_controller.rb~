@@ -6,7 +6,10 @@ class ComicsController < ApplicationController
   # GET /comics.json
   def index
     #debugger
-    @comics = Comic.order(sort_column + " " + sort_direction)
+    notNull = Comic.where("#{sort_column} IS NOT NULL").order(sort_column + " " + sort_direction)
+    nulled = Comic.where("#{sort_column} = ?", {:id=>nil}).order("name " + sort_direction)
+    @comics = notNull + nulled
+	print @comics
     #@comics = Comic.all
   end
 
@@ -56,22 +59,22 @@ class ComicsController < ApplicationController
 
   def updateComicRating()
     @comic.rates = @comic.rates == nil ? 1 : @comic.rates + 1
-    @comic.update_attributes!(:rates => @comic.rates, :rating_art => adjustedArtRating(@comic), :rating_story => adjustedStoryRating(@comic), :rating_overall => adjustedOverallRating(@comic))
+    @comic.update_attributes!(:rates => @comic.rates, :rating_art => artRating(@comic), :rating_story => storyRating(@comic), :rating_overall => overallRating(@comic))
   end
 
-  def adjustedArtRating(comic)
-    currentRatings = params[:ratings]
-    comic.rating_art == nil ? currentRatings["rating_art"] : (comic.rating_art * comic.rates + currentRatings[:rating_art].to_i) / (comic.rates + 1)
+  def artRating(comic)
+    ratingsHash = params[:ratings]
+    comic.rating_art == nil ? ratingsHash["rating_art"] : (comic.rating_art * comic.rates + ratingsHash[:rating_art].to_i) / (comic.rates + 1)
   end
   
-  def adjustedStoryRating(comic)
-    currentRatings = params[:ratings]
-    comic.rating_story == nil ? currentRatings["rating_story"] :(comic.rating_story * comic.rates + currentRatings[:rating_story].to_i) / (comic.rates + 1)
+  def storyRating(comic)
+    ratingsHash = params[:ratings]
+    comic.rating_story == nil ? ratingsHash["rating_story"] :(comic.rating_story * comic.rates + ratingsHash[:rating_story].to_i) / (comic.rates + 1)
   end
 
-  def adjustedOverallRating(comic)
-    currentRatings = params[:ratings]
-    comic.rating_overall == nil ? currentRatings["rating_overall"] :(comic.rating_overall * comic.rates + currentRatings[:rating_overall].to_i) / (comic.rates + 1)
+  def overallRating(comic)
+    ratingsHash = params[:ratings]
+    comic.rating_overall == nil ? ratingsHash["rating_overall"] :(comic.rating_overall * comic.rates + ratingsHash[:rating_overall].to_i) / (comic.rates + 1)
   end
 
   # GET /comics/new
